@@ -1,9 +1,10 @@
-package be.webfactor.inrdiary;
+package be.webfactor.inrdiary.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import be.webfactor.inrdiary.R;
 
 public class ManageDosesActivity extends Activity {
 

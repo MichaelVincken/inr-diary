@@ -12,7 +12,7 @@
 			android:icon="@drawable/ic_launcher"
 			android:theme="@android:style/Theme.Holo.Light">
 		<activity
-				android:name=".MainActivity">
+				android:name=".activity.MainActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.LAUNCHER"/>
@@ -20,9 +20,9 @@
 		</activity>
 
 		<activity
-				android:name=".ManageDosesActivity"
+				android:name=".activity.ManageDosesActivity"
 				android:label="@string/manage_doses"
-				android:parentActivityName=".MainActivity">
+				android:parentActivityName=".activity.MainActivity">
 			<meta-data
 					android:name="android.support.PARENT_ACTIVITY"
 					android:value=".MainActivity"/>
