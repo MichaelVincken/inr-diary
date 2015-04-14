@@ -9,14 +9,23 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 import be.webfactor.inrdiary.R;
-import be.webfactor.inrdiary.domain.Dose;
+import be.webfactor.inrdiary.domain.DailyDose;
+import be.webfactor.inrdiary.domain.DoseType;
 
 public class AddDoseDialogFragment extends DialogFragment {
 
+	public interface AddDoseDialogListener {
+
+		void onAddDose(DailyDose dose);
+
+	}
+
+	private AddDoseDialogListener listener;
+
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
+		listener = (AddDoseDialogListener) activity;
 	}
 
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -32,12 +41,14 @@ public class AddDoseDialogFragment extends DialogFragment {
 				.setView(view)
 				.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
-						int day = datePicker.getDayOfMonth();
-						int month = datePicker.getMonth() + 1;
-						int year = datePicker.getYear();
-						Dose dose = Dose.values()[numberPicker.getValue()];
+						DailyDose dailyDose = new DailyDose();
 
-						Toast.makeText(getActivity().getApplicationContext(), String.format("Dose %s added for date %s/%s/%s", dose, day, month, year), Toast.LENGTH_LONG).show();
+						dailyDose.setDay(datePicker.getDayOfMonth());
+						dailyDose.setMonth(datePicker.getMonth() + 1);
+						dailyDose.setYear(datePicker.getYear());
+						dailyDose.setDose(DoseType.values()[numberPicker.getValue()]);
+
+						listener.onAddDose(dailyDose);
 					}
 				})
 				.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -50,10 +61,10 @@ public class AddDoseDialogFragment extends DialogFragment {
 	}
 
 	private void setupNumberPicker(NumberPicker numberPicker) {
-		numberPicker.setDisplayedValues(Dose.DISPLAY_VALUES);
+		numberPicker.setDisplayedValues(DoseType.DISPLAY_VALUES);
 		numberPicker.setMinValue(0);
-		numberPicker.setMaxValue(Dose.DISPLAY_VALUES.length - 1);
-		numberPicker.setValue(Dose.DEFAULT.ordinal());
+		numberPicker.setMaxValue(DoseType.DISPLAY_VALUES.length - 1);
+		numberPicker.setValue(DoseType.DEFAULT.ordinal());
 		numberPicker.setWrapSelectorWheel(false);
 	}
 
