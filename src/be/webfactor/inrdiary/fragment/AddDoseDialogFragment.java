@@ -11,14 +11,9 @@ import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 import be.webfactor.inrdiary.R;
-
-import java.util.Arrays;
-import java.util.List;
+import be.webfactor.inrdiary.domain.Dose;
 
 public class AddDoseDialogFragment extends DialogFragment {
-
-	private static final List<String> DOSES = Arrays.asList("0", "0.25", "0.5", "0.75", "1", "1.25", "1.5", "1.75", "2");
-	private static final String DEFAULT_DOSE = "1";
 
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -40,7 +35,7 @@ public class AddDoseDialogFragment extends DialogFragment {
 						int day = datePicker.getDayOfMonth();
 						int month = datePicker.getMonth() + 1;
 						int year = datePicker.getYear();
-						float dose = Float.valueOf(DOSES.get(numberPicker.getValue()));
+						Dose dose = Dose.values()[numberPicker.getValue()];
 
 						Toast.makeText(getActivity().getApplicationContext(), String.format("Dose %s added for date %s/%s/%s", dose, day, month, year), Toast.LENGTH_LONG).show();
 					}
@@ -55,10 +50,10 @@ public class AddDoseDialogFragment extends DialogFragment {
 	}
 
 	private void setupNumberPicker(NumberPicker numberPicker) {
-		numberPicker.setDisplayedValues(DOSES.toArray(new String[DOSES.size()]));
+		numberPicker.setDisplayedValues(Dose.DISPLAY_VALUES);
 		numberPicker.setMinValue(0);
-		numberPicker.setMaxValue(DOSES.size() - 1);
-		numberPicker.setValue(DOSES.indexOf(DEFAULT_DOSE));
+		numberPicker.setMaxValue(Dose.DISPLAY_VALUES.length - 1);
+		numberPicker.setValue(Dose.DEFAULT.ordinal());
 		numberPicker.setWrapSelectorWheel(false);
 	}
 
