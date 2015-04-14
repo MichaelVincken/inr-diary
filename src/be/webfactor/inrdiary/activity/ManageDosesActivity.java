@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.fragment.AddDoseDialogFragment;
 
-public class ManageDosesActivity extends Activity implements AddDoseDialogFragment.AddDoseDialogListener {
+public class ManageDosesActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,10 +31,6 @@ public class ManageDosesActivity extends Activity implements AddDoseDialogFragme
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-	}
-
-	public void onSave(DialogFragment dialog) {
-		Toast.makeText(getApplicationContext(), "Dose added!", Toast.LENGTH_LONG).show();
 	}
 
 }
