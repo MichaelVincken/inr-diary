@@ -34,7 +34,7 @@ public class ManageDosesActivity extends DailyDoseServiceActivity implements Add
 	}
 
 	public void onAddDose(DailyDose dose) {
-		createDose(dose);
+		save(dose);
 	}
 
 }

@@ -7,7 +7,7 @@ public class DailyDose {
 	@DatabaseField(generatedId = true)
 	private int id;
 
-	@DatabaseField(canBeNull = false)
+	@DatabaseField(canBeNull = false, uniqueIndex = true)
 	private String date;
 
 	@DatabaseField(canBeNull = false)
