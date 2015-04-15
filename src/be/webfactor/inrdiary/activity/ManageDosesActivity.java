@@ -13,13 +13,19 @@ import be.webfactor.inrdiary.fragment.AddDoseDialogFragment;
 
 public class ManageDosesActivity extends DailyDoseServiceActivity implements AddDoseDialogFragment.AddDoseDialogListener {
 
+	private ListView resultList;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_doses);
 
+		populateDoseOverview();
+	}
+
+	private void populateDoseOverview() {
 		ListView resultList = (ListView) findViewById(R.id.doses_listview);
-		DailyDoseAdapter adapter = new DailyDoseAdapter(getApplicationContext(), getDoses());
-		resultList.setAdapter(adapter);
+		DailyDoseAdapter dailyDoseAdapter = new DailyDoseAdapter(getApplicationContext(), getDoses());
+		resultList.setAdapter(dailyDoseAdapter);
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -41,6 +47,7 @@ public class ManageDosesActivity extends DailyDoseServiceActivity implements Add
 
 	public void onAddDose(DailyDose dose) {
 		saveDose(dose);
+		populateDoseOverview();
 	}
 
 }
