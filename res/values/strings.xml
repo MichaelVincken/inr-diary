@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">INR Diary</string>
+	<string name="action_settings">Settings</string>
+	<string name="manage_doses">Manage Doses</string>
+	<string name="add_dose">Add Dose</string>
+	<string name="save">Save</string>
+	<string name="cancel">Cancel</string>
 </resources>
