@@ -6,13 +6,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import be.webfactor.inrdiary.R;
-import be.webfactor.inrdiary.database.DatabaseHelper;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.fragment.AddDoseDialogFragment;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 
-public class ManageDosesActivity extends OrmLiteBaseActivity<DatabaseHelper> implements AddDoseDialogFragment.AddDoseDialogListener {
+public class ManageDosesActivity extends DailyDoseServiceActivity implements AddDoseDialogFragment.AddDoseDialogListener {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,8 +34,7 @@ public class ManageDosesActivity extends OrmLiteBaseActivity<DatabaseHelper> imp
 	}
 
 	public void onAddDose(DailyDose dose) {
-		RuntimeExceptionDao<DailyDose, Integer> dao = getHelper().getDao();
-		dao.create(dose);
+		createDose(dose);
 	}
 
 }
