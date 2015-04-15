@@ -25,4 +25,8 @@ public enum DoseType {
 		this.label = label;
 	}
 
+	public static float getDoseForIndex(int value) {
+		return values()[value].value;
+	}
+
 }

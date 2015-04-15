@@ -8,46 +8,24 @@ public class DailyDose {
 	private int id;
 
 	@DatabaseField(canBeNull = false)
-	private int day;
+	private String date;
 
 	@DatabaseField(canBeNull = false)
-	private int month;
+	private float dose;
 
-	@DatabaseField(canBeNull = false)
-	private int year;
-
-	@DatabaseField(canBeNull = false)
-	private DoseType dose;
-
-	public int getDay() {
-		return day;
+	public String getDate() {
+		return date;
 	}
 
-	public void setDay(int day) {
-		this.day = day;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public int getMonth() {
-		return month;
-	}
-
-	public void setMonth(int month) {
-		this.month = month;
-	}
-
-	public int getYear() {
-		return year;
-	}
-
-	public void setYear(int year) {
-		this.year = year;
-	}
-
-	public DoseType getDose() {
+	public float getDose() {
 		return dose;
 	}
 
-	public void setDose(DoseType dose) {
+	public void setDose(float dose) {
 		this.dose = dose;
 	}
 

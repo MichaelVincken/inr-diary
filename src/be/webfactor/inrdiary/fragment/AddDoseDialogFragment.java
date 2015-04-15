@@ -13,7 +13,14 @@ import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.domain.DoseType;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class AddDoseDialogFragment extends DialogFragment {
+
+	private static final String DATE_FORMAT = "yyyyMMdd";
+	private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
 
 	public interface AddDoseDialogListener {
 
@@ -43,10 +50,8 @@ public class AddDoseDialogFragment extends DialogFragment {
 					public void onClick(DialogInterface dialog, int which) {
 						DailyDose dailyDose = new DailyDose();
 
-						dailyDose.setDay(datePicker.getDayOfMonth());
-						dailyDose.setMonth(datePicker.getMonth() + 1);
-						dailyDose.setYear(datePicker.getYear());
-						dailyDose.setDose(DoseType.values()[numberPicker.getValue()]);
+						dailyDose.setDate(getDateString(datePicker));
+						dailyDose.setDose(DoseType.getDoseForIndex(numberPicker.getValue()));
 
 						listener.onAddDose(dailyDose);
 					}
@@ -58,6 +63,19 @@ public class AddDoseDialogFragment extends DialogFragment {
 				});
 
 		return builder.create();
+	}
+
+	private String getDateString(DatePicker datePicker) {
+		int day = datePicker.getDayOfMonth();
+		int month = datePicker.getMonth();
+		int year =  datePicker.getYear();
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year, month, day);
+
+		Date date = calendar.getTime();
+
+		return SIMPLE_DATE_FORMAT.format(date);
 	}
 
 	private void setupNumberPicker(NumberPicker numberPicker) {

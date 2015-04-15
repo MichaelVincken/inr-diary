@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	private static final String DATABASE_NAME = "inrdiary";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	private RuntimeExceptionDao<DailyDose, Integer> dao = null;
 
@@ -30,7 +30,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	public void onUpgrade(SQLiteDatabase db, ConnectionSource connectionSource, int oldVersion, int newVersion) {
-
+		try {
+			TableUtils.dropTable(connectionSource, DailyDose.class, true);
+			TableUtils.createTable(connectionSource, DailyDose.class);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public RuntimeExceptionDao<DailyDose, Integer> getDao() {
