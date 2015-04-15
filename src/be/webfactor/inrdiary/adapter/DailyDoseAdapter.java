@@ -25,7 +25,7 @@ public class DailyDoseAdapter extends ArrayAdapter<DailyDose> {
 		DailyDose dailyDose = getItem(position);
 
 		TextView doseDate = (TextView) rowView.findViewById(R.id.dose_date);
-		doseDate.setText(dailyDose.getDate());
+		doseDate.setText(dailyDose.getReadableDate());
 
 		TextView doseAmount = (TextView) rowView.findViewById(R.id.dose_amount);
 		doseAmount.setText(DoseType.getLabelForAmount(dailyDose.getDose()));

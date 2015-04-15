@@ -7,14 +7,15 @@
 
 	<TextView
 			android:id="@+id/dose_date"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="0.3"/>
+			android:layout_width="75dp"
+			android:layout_height="fill_parent"
+			style="@style/list_item_date"/>
 
 	<TextView
 			android:id="@+id/dose_amount"
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="0.7"/>
+			android:layout_height="fill_parent"
+			android:layout_weight="1.0"
+			style="@style/list_item_dose"/>
 
 </LinearLayout>

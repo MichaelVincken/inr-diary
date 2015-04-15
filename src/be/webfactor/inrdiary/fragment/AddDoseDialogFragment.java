@@ -13,14 +13,10 @@ import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.domain.DoseType;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class AddDoseDialogFragment extends DialogFragment {
-
-	private static final String DATE_FORMAT = "yyyyMMdd";
-	private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_FORMAT);
 
 	public interface AddDoseDialogListener {
 
@@ -75,7 +71,7 @@ public class AddDoseDialogFragment extends DialogFragment {
 
 		Date date = calendar.getTime();
 
-		return SIMPLE_DATE_FORMAT.format(date);
+		return DailyDose.DB_FORMAT.format(date);
 	}
 
 	private void setupNumberPicker(NumberPicker numberPicker) {
