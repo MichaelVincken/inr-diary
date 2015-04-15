@@ -5,11 +5,12 @@ import be.webfactor.inrdiary.domain.DailyDose;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public abstract class DailyDoseServiceActivity extends OrmLiteBaseActivity<DatabaseHelper> {
 
-	public void save(DailyDose dose) {
+	protected void saveDose(DailyDose dose) {
 		RuntimeExceptionDao<DailyDose, Integer> dao = getHelper().getDao();
 
 		List<DailyDose> existingDoses = dao.queryForEq("date", dose.getDate());
@@ -19,6 +20,16 @@ public abstract class DailyDoseServiceActivity extends OrmLiteBaseActivity<Datab
 			DailyDose existingDose = existingDoses.get(0);
 			existingDose.setDose(dose.getDose());
 			dao.update(existingDose);
+		}
+	}
+
+	protected List<DailyDose> getDoses() {
+		RuntimeExceptionDao<DailyDose, Integer> dao = getHelper().getDao();
+
+		try {
+			return dao.queryBuilder().orderBy("date", false).query();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
