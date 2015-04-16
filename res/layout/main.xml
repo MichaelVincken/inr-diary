@@ -16,12 +16,31 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="0.5"
-				android:orientation="vertical">
+				android:orientation="vertical"
+				android:weightSum="1.0"
+				style="@style/top_left_view">
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="0.2"
+					android:text="@string/today"
+					style="@style/todays_dose_title"/>
 
 			<TextView
 					android:id="@+id/todays_dose_amount_text_view"
 					android:layout_width="match_parent"
-					android:layout_height="match_parent"/>
+					android:layout_height="0dp"
+					android:layout_weight="0.6"
+					android:text="@string/default_dose"
+					style="@style/todays_dose_value"/>
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="0.2"
+					android:text="@string/tap_to_confirm"
+					style="@style/todays_dose_context"/>
 
 		</LinearLayout>
 
