@@ -26,6 +26,12 @@ public class MainActivity extends DailyDoseService {
 		todaysDoseAmountTextView = (TextView) findViewById(R.id.todays_dose_amount_text_view);
 		layoutWithValue = (LinearLayout) findViewById(R.id.layout_with_value);
 		layoutWithoutValue = (LinearLayout) findViewById(R.id.layout_without_value);
+		layoutWithoutValue.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent i = new Intent(getApplicationContext(), ManageDosesActivity.class);
+				startActivity(i);
+			}
+		});
 	}
 
 	protected void onResume() {
