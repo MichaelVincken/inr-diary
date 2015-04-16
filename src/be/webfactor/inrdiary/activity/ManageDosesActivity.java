@@ -10,15 +10,19 @@ import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.adapter.DailyDoseAdapter;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.fragment.AddDoseDialogFragment;
+import be.webfactor.inrdiary.service.DailyDoseService;
 
-public class ManageDosesActivity extends DailyDoseServiceActivity implements AddDoseDialogFragment.AddDoseDialogListener {
-
-	private ListView resultList;
+public class ManageDosesActivity extends DailyDoseService implements AddDoseDialogFragment.AddDoseDialogListener {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_doses);
 
+		populateDoseOverview();
+	}
+
+	public void onAddDose(DailyDose dose) {
+		saveDose(dose);
 		populateDoseOverview();
 	}
 
@@ -43,11 +47,6 @@ public class ManageDosesActivity extends DailyDoseServiceActivity implements Add
 			default:
 				return super.onOptionsItemSelected(item);
 		}
-	}
-
-	public void onAddDose(DailyDose dose) {
-		saveDose(dose);
-		populateDoseOverview();
 	}
 
 }
