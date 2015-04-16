@@ -2,7 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			  android:orientation="vertical"
 			  android:layout_width="fill_parent"
-			  android:layout_height="fill_parent">
+			  android:layout_height="fill_parent"
+			  android:weightSum="1.0">
 
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="0.5"
+			android:orientation="horizontal"
+			android:weightSum="1.0">
+
+		<LinearLayout
+				android:id="@+id/layout_with_value"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:orientation="vertical"
+				android:weightSum="1.0"
+				style="@style/top_left_view_with_value">
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="0.2"
+					android:text="@string/today"
+					style="@style/todays_dose_title"/>
+
+			<TextView
+					android:id="@+id/todays_dose_amount_text_view"
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="0.6"
+					android:text="@string/default_dose"
+					style="@style/todays_dose_value"/>
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="0.2"
+					android:text="@string/tap_to_confirm"
+					style="@style/todays_dose_context"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+				android:id="@+id/layout_without_value"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:visibility="gone"
+				android:orientation="vertical"
+				android:weightSum="1.0"
+				style="@style/top_left_view_without_value">
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="0.6"
+					android:text="@string/no_dose_set_for_today"
+					style="@style/todays_dose_no_value"/>
+
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="0dp"
+					android:layout_weight="0.4"
+					android:text="@string/tap_to_configure_doses"
+					style="@style/todays_dose_context"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:orientation="vertical">
+
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<TextView
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="0.5"/>
 
 </LinearLayout>
