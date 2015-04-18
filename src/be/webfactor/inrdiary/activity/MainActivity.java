@@ -18,13 +18,21 @@ public class MainActivity extends DailyDoseService {
 	private LinearLayout layoutWithValue;
 	private LinearLayout layoutWithoutValue;
 	private TextView todaysDoseAmountTextView;
+	private TextView todaysDoseContext;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
 		todaysDoseAmountTextView = (TextView) findViewById(R.id.todays_dose_amount_text_view);
+		todaysDoseContext = (TextView) findViewById(R.id.todays_dose_context);
 		layoutWithValue = (LinearLayout) findViewById(R.id.layout_with_value);
+		layoutWithValue.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				toggleTodaysDoseConfirmation();
+				buildLayout();
+			}
+		});
 		layoutWithoutValue = (LinearLayout) findViewById(R.id.layout_without_value);
 		layoutWithoutValue.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -37,13 +45,25 @@ public class MainActivity extends DailyDoseService {
 	protected void onResume() {
 		super.onResume();
 
+		buildLayout();
+	}
+
+	private void buildLayout() {
 		DailyDose todaysDose = getTodaysDose();
+		layoutWithoutValue.setVisibility(View.GONE);
+		layoutWithValue.setVisibility(View.GONE);
 		if (todaysDose != null) {
 			layoutWithValue.setVisibility(View.VISIBLE);
-			layoutWithoutValue.setVisibility(View.GONE);
-			todaysDoseAmountTextView.setText(DoseType.getLabelForAmount(getTodaysDose().getDose()));
+			if (todaysDose.isConfirmed()) {
+				layoutWithValue.setBackgroundColor(getResources().getColor(R.color.green));
+				todaysDoseAmountTextView.setText(getResources().getString(R.string.ok));
+				todaysDoseContext.setText(getResources().getString(R.string.tap_to_undo));
+			} else {
+				layoutWithValue.setBackgroundColor(getResources().getColor(R.color.orange));
+				todaysDoseAmountTextView.setText(DoseType.getLabelForAmount(getTodaysDose().getDose()));
+				todaysDoseContext.setText(getResources().getString(R.string.tap_to_confirm));
+			}
 		} else {
-			layoutWithValue.setVisibility(View.GONE);
 			layoutWithoutValue.setVisibility(View.VISIBLE);
 		}
 	}

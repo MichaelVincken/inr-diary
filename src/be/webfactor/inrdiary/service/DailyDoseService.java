@@ -39,6 +39,12 @@ public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelpe
 		dao().delete(dose);
 	}
 
+	protected void toggleTodaysDoseConfirmation() {
+		DailyDose dose = getTodaysDose();
+		dose.setConfirmed(!dose.isConfirmed());
+		dao().update(dose);
+	}
+
 	private DailyDose getDoseByDate(String date) {
 		try {
 			return dao().queryBuilder().where().eq(DATE_FIELD, date).queryForFirst();
