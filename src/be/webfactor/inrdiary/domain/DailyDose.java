@@ -9,7 +9,6 @@ import java.util.Date;
 public class DailyDose {
 
 	public static final SimpleDateFormat DB_FORMAT = new SimpleDateFormat("yyyyMMdd");
-	public static final SimpleDateFormat LIST_VIEW_FORMAT = new SimpleDateFormat("EEE d/M");
 
 	@DatabaseField(generatedId = true)
 	private int id;
@@ -23,12 +22,11 @@ public class DailyDose {
 	@DatabaseField
 	private boolean confirmed;
 
-	public String getReadableDate() {
+	public Date getDateObj() {
 		try {
-			Date dateObject = DB_FORMAT.parse(date);
-			return LIST_VIEW_FORMAT.format(dateObject);
+			return DB_FORMAT.parse(date);
 		} catch (ParseException e) {
-			return "";
+			throw new RuntimeException(e);
 		}
 	}
 

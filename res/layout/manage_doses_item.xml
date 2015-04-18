@@ -5,11 +5,32 @@
 			  android:layout_height="fill_parent"
 			  android:weightSum="1.0">
 
-	<TextView
-			android:id="@+id/dose_date"
-			android:layout_width="75dp"
+	<LinearLayout
+			android:id="@+id/dose_item_date"
+			android:layout_width="50dp"
 			android:layout_height="fill_parent"
-			style="@style/list_item_date"/>
+			android:orientation="vertical"
+			style="@style/list_item_date">
+
+		<TextView
+				android:id="@+id/item_date_day_of_week"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				style="@style/item_date_small"/>
+
+		<TextView
+				android:id="@+id/item_date_day"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				style="@style/item_date_large"/>
+
+		<TextView
+				android:id="@+id/item_date_month"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				style="@style/item_date_small"/>
+
+	</LinearLayout>
 
 	<TextView
 			android:id="@+id/dose_amount"
