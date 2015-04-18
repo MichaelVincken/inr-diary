@@ -20,6 +20,9 @@ public class DailyDose {
 	@DatabaseField(canBeNull = false)
 	private float dose;
 
+	@DatabaseField
+	private boolean confirmed;
+
 	public String getReadableDate() {
 		try {
 			Date dateObject = DB_FORMAT.parse(date);
@@ -43,6 +46,14 @@ public class DailyDose {
 
 	public void setDose(float dose) {
 		this.dose = dose;
+	}
+
+	public boolean isConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
 	}
 
 }

@@ -13,4 +13,6 @@
 	<string name="tap_to_configure_doses">Tap to configure doses</string>
 	<string name="dose_was_successfully_deleted">Dose was successfully deleted</string>
 	<string name="dose_was_successfully_added">Dose was successfully added</string>
+	<string name="ok">OK</string>
+	<string name="tap_to_undo">Tap to undo</string>
 </resources>
