@@ -7,7 +7,7 @@
 
 	<LinearLayout
 			android:id="@+id/dose_item_date"
-			android:layout_width="50dp"
+			android:layout_width="65dp"
 			android:layout_height="fill_parent"
 			android:orientation="vertical"
 			style="@style/list_item_date">
@@ -32,11 +32,31 @@
 
 	</LinearLayout>
 
-	<TextView
-			android:id="@+id/dose_amount"
+	<LinearLayout
 			android:layout_width="0dp"
-			android:layout_height="fill_parent"
+			android:layout_height="match_parent"
 			android:layout_weight="1.0"
-			style="@style/list_item_dose"/>
+			android:weightSum="1.0">
 
+		<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:orientation="horizontal"
+				android:gravity="center">
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:text="@string/dose"
+					style="@style/list_item_dose_label"/>
+
+			<TextView
+					android:id="@+id/dose_amount"
+					android:layout_width="wrap_content"
+					android:layout_height="fill_parent"
+					android:width="50dp"
+					style="@style/list_item_dose"/>
+		</LinearLayout>
+	</LinearLayout>
 </LinearLayout>
