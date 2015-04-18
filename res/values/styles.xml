@@ -1,27 +1,28 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="list_item_date">
+
+	<style name="list_item_date">
 		<item name="android:background">@drawable/background_light_grey</item>
-		<item name="android:textSize">12sp</item>
+		<item name="android:textSize">12dp</item>
 		<item name="android:textColor">@color/dark_grey</item>
 		<item name="android:padding">10dp</item>
 		<item name="android:gravity">center</item>
-    </style>
+	</style>
 
 	<style name="list_item_dose">
-		<item name="android:textSize">20sp</item>
+		<item name="android:textSize">20dp</item>
 		<item name="android:textColor">@color/darker_grey</item>
 		<item name="android:padding">15dp</item>
 		<item name="android:gravity">center</item>
 	</style>
 
 	<style name="todays_dose_title">
-		<item name="android:textSize">20sp</item>
+		<item name="android:textSize">20dp</item>
 		<item name="android:textColor">@color/white</item>
 		<item name="android:gravity">center</item>
 	</style>
 
 	<style name="todays_dose_value">
-		<item name="android:textSize">80sp</item>
+		<item name="android:textSize">75dp</item>
 		<item name="android:textColor">@color/white</item>
 		<item name="android:gravity">center</item>
 	</style>
@@ -31,7 +32,7 @@
 	</style>
 
 	<style name="todays_dose_context">
-		<item name="android:textSize">15sp</item>
+		<item name="android:textSize">15dp</item>
 		<item name="android:textColor">@color/white</item>
 		<item name="android:gravity">center</item>
 	</style>
@@ -42,7 +43,7 @@
 	</style>
 
 	<style name="todays_dose_no_value">
-		<item name="android:textSize">25sp</item>
+		<item name="android:textSize">25dp</item>
 		<item name="android:textColor">@color/white</item>
 		<item name="android:gravity">center</item>
 	</style>
