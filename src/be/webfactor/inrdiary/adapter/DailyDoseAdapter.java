@@ -10,9 +10,16 @@ import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.domain.DoseType;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class DailyDoseAdapter extends ArrayAdapter<DailyDose> {
+
+	private static final DateFormat DAY_OF_WEEK_FORMAT = new SimpleDateFormat("EEE");
+	private static final DateFormat DAY_FORMAT = new SimpleDateFormat("d");
+	private static final DateFormat MONTH_FORMAT = new SimpleDateFormat("MMM");
 
 	public DailyDoseAdapter(Context context, List<DailyDose> objects) {
 		super(context, R.layout.manage_doses_item, objects);
@@ -24,8 +31,15 @@ public class DailyDoseAdapter extends ArrayAdapter<DailyDose> {
 
 		DailyDose dailyDose = getItem(position);
 
-		TextView doseDate = (TextView) rowView.findViewById(R.id.dose_date);
-		doseDate.setText(dailyDose.getReadableDate());
+		TextView dayOfWeekTextView = (TextView) rowView.findViewById(R.id.item_date_day_of_week);
+		TextView dayTextView = (TextView) rowView.findViewById(R.id.item_date_day);
+		TextView monthTextView = (TextView) rowView.findViewById(R.id.item_date_month);
+
+		Date date = dailyDose.getDateObj();
+
+		dayOfWeekTextView.setText(DAY_OF_WEEK_FORMAT.format(date).toUpperCase());
+		dayTextView.setText(DAY_FORMAT.format(date));
+		monthTextView.setText(MONTH_FORMAT.format(date).toUpperCase().substring(0, 3));
 
 		TextView doseAmount = (TextView) rowView.findViewById(R.id.dose_amount);
 		doseAmount.setText(DoseType.getLabelForAmount(dailyDose.getDose()));
