@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.webfactor.inrdiary.R;
@@ -19,6 +20,7 @@ public class MainActivity extends DailyDoseService {
 	private LinearLayout layoutWithoutValue;
 	private TextView todaysDoseAmountTextView;
 	private TextView todaysDoseContext;
+	private ImageView todaysDoseIcon;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -26,6 +28,7 @@ public class MainActivity extends DailyDoseService {
 		setContentView(R.layout.main);
 		todaysDoseAmountTextView = (TextView) findViewById(R.id.todays_dose_amount_text_view);
 		todaysDoseContext = (TextView) findViewById(R.id.todays_dose_context);
+		todaysDoseIcon = (ImageView) findViewById(R.id.todays_dose_pill_icon);
 		layoutWithValue = (LinearLayout) findViewById(R.id.layout_with_value);
 		layoutWithValue.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -58,10 +61,12 @@ public class MainActivity extends DailyDoseService {
 				layoutWithValue.setBackgroundColor(getResources().getColor(R.color.green));
 				todaysDoseAmountTextView.setText(getResources().getString(R.string.ok));
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_undo));
+				todaysDoseIcon.setVisibility(View.GONE);
 			} else {
 				layoutWithValue.setBackgroundColor(getResources().getColor(R.color.orange));
 				todaysDoseAmountTextView.setText(DoseType.getLabelForAmount(getTodaysDose().getDose()));
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_confirm));
+				todaysDoseIcon.setVisibility(View.VISIBLE);
 			}
 		} else {
 			layoutWithoutValue.setVisibility(View.VISIBLE);
