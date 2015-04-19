@@ -5,5 +5,5 @@
 			android:id="@+id/add_dose"
 			android:title="@string/add_dose"
 			android:showAsAction="always"
-			android:icon="@android:drawable/ic_input_add"/>
+			android:icon="@drawable/ic_action_add"/>
 </menu>
