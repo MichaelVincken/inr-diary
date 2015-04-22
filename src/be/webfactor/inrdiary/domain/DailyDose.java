@@ -22,6 +22,9 @@ public class DailyDose {
 	@DatabaseField
 	private boolean confirmed;
 
+	@DatabaseField
+	private Date confirmationDate;
+
 	public Date getDateObj() {
 		try {
 			return DB_FORMAT.parse(date);
@@ -52,6 +55,14 @@ public class DailyDose {
 
 	public void setConfirmed(boolean confirmed) {
 		this.confirmed = confirmed;
+	}
+
+	public Date getConfirmationDate() {
+		return confirmationDate;
+	}
+
+	public void setConfirmationDate(Date confirmationDate) {
+		this.confirmationDate = confirmationDate;
 	}
 
 }
