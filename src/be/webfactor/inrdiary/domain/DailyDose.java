@@ -9,6 +9,7 @@ import java.util.Date;
 public class DailyDose {
 
 	public static final SimpleDateFormat DB_FORMAT = new SimpleDateFormat("yyyyMMdd");
+	private static final SimpleDateFormat CONFIRM_TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
 	@DatabaseField(generatedId = true)
 	private int id;
@@ -31,6 +32,13 @@ public class DailyDose {
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public String getFormattedConfirmationTime() {
+		if (confirmationDate == null) {
+			return null;
+		}
+		return CONFIRM_TIME_FORMAT.format(confirmationDate);
 	}
 
 	public String getDate() {

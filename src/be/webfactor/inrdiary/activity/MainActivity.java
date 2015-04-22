@@ -13,10 +13,17 @@ import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.service.DailyDoseService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends DailyDoseService {
+
+	private static final DateFormat TODAY_DATE_FORMAT = new SimpleDateFormat("EEEE d MMMM");
 
 	private LinearLayout layoutWithValue;
 	private LinearLayout layoutWithoutValue;
+	private TextView todaysDoseTitle;
 	private TextView todaysDoseAmountTextView;
 	private TextView todaysDoseContext;
 	private ImageView todaysDoseIcon;
@@ -25,6 +32,8 @@ public class MainActivity extends DailyDoseService {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
+
+		todaysDoseTitle = (TextView) findViewById(R.id.todays_dose_title);
 		todaysDoseAmountTextView = (TextView) findViewById(R.id.todays_dose_amount_text_view);
 		todaysDoseContext = (TextView) findViewById(R.id.todays_dose_context);
 		todaysDoseIcon = (ImageView) findViewById(R.id.todays_dose_pill_icon);
@@ -58,11 +67,15 @@ public class MainActivity extends DailyDoseService {
 			layoutWithValue.setVisibility(View.VISIBLE);
 			if (todaysDose.isConfirmed()) {
 				layoutWithValue.setBackgroundColor(getResources().getColor(R.color.green));
+				todaysDoseTitle.setText(getResources().getString(R.string.confirmed_at_x, todaysDose.getFormattedConfirmationTime()));
 				todaysDoseAmountTextView.setText(getResources().getString(R.string.ok));
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_undo));
 				todaysDoseIcon.setVisibility(View.GONE);
 			} else {
 				layoutWithValue.setBackgroundColor(getResources().getColor(R.color.orange));
+				String todayString = TODAY_DATE_FORMAT.format(new Date());
+				todayString = Character.toUpperCase(todayString.charAt(0)) + todayString.substring(1);
+				todaysDoseTitle.setText(todayString);
 				todaysDoseAmountTextView.setText(getTodaysDose().getDose().getLabel());
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_confirm));
 				todaysDoseIcon.setVisibility(View.VISIBLE);

@@ -16,4 +16,5 @@
 	<string name="ok">OK</string>
 	<string name="tap_to_undo">Tap to undo</string>
 	<string name="dose">Dose</string>
+	<string name="confirmed_at_x">Confirmed at %1$s</string>
 </resources>
