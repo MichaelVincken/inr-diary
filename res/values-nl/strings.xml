@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">INR Diary</string>
+	<string name="action_settings">Instellingen</string>
+	<string name="manage_doses">Doses Beheren</string>
+	<string name="add_dose">Dosis Toevoegen</string>
+	<string name="save_and_continue">Opslaan &amp; verder</string>
+	<string name="cancel">Annuleren</string>
+	<string name="tap_to_confirm">Tik om te bevestigen</string>
+	<string name="no_dose_set_for_today">Geen dosis ingesteld voor vandaag!</string>
+	<string name="tap_to_configure_doses">Tik om doses te beheren</string>
+	<string name="dose_was_successfully_deleted">Dosis was succesvol verwijderd</string>
+	<string name="dose_was_successfully_added">Dosis was succesvol toegevoegd</string>
+	<string name="ok">OK</string>
+	<string name="tap_to_undo">Tik om ongedaan te maken</string>
+	<string name="dose">Dosis</string>
+	<string name="confirmed_at_x">Bevestigd om %1$s</string>
+</resources>

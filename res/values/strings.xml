@@ -6,8 +6,6 @@
 	<string name="add_dose">Add Dose</string>
 	<string name="save_and_continue">Save &amp; continue</string>
 	<string name="cancel">Cancel</string>
-	<string name="default_dose">2½</string>
-	<string name="today">Today</string>
 	<string name="tap_to_confirm">Tap to confirm</string>
 	<string name="no_dose_set_for_today">No dose set for today!</string>
 	<string name="tap_to_configure_doses">Tap to configure doses</string>

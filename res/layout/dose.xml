@@ -35,7 +35,6 @@
 					android:id="@+id/todays_dose_amount_text_view"
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					android:text="@string/default_dose"
 					style="@style/todays_dose_value"/>
 
 			<ImageView
