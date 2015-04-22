@@ -25,17 +25,8 @@ public enum DoseType {
 		this.label = label;
 	}
 
-	public static float getDoseForIndex(int value) {
-		return values()[value].value;
-	}
-
-	public static String getLabelForAmount(float amount) {
-		for (DoseType doseType : values()) {
-			if (doseType.value == amount) {
-				return doseType.label;
-			}
-		}
-		return "";
+	public String getLabel() {
+		return label;
 	}
 
 }

@@ -30,6 +30,8 @@ public class ManageDosesActivity extends DailyDoseService implements AddDoseDial
 		saveDose(dose);
 		Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_added), Toast.LENGTH_SHORT).show();
 		populateDoseOverview();
+
+		openCreateDoseDialog();
 	}
 
 	private void populateDoseOverview() {
@@ -56,12 +58,16 @@ public class ManageDosesActivity extends DailyDoseService implements AddDoseDial
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.add_dose:
-				DialogFragment fragment = new AddDoseDialogFragment();
-				fragment.show(getFragmentManager(), null);
+				openCreateDoseDialog();
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	private void openCreateDoseDialog() {
+		DialogFragment fragment = AddDoseDialogFragment.newInstance(getNearestDateWithoutDose(), getLastKnownDose());
+		fragment.show(getFragmentManager(), null);
 	}
 
 }

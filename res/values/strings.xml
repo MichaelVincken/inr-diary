@@ -4,7 +4,7 @@
 	<string name="action_settings">Settings</string>
 	<string name="manage_doses">Manage Doses</string>
 	<string name="add_dose">Add Dose</string>
-	<string name="save">Save</string>
+	<string name="save_and_continue">Save &amp; continue</string>
 	<string name="cancel">Cancel</string>
 	<string name="default_dose">2½</string>
 	<string name="today">Today</string>

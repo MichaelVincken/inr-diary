@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.DailyDose;
-import be.webfactor.inrdiary.domain.DoseType;
 import be.webfactor.inrdiary.service.DailyDoseService;
 
 public class MainActivity extends DailyDoseService {
@@ -64,7 +63,7 @@ public class MainActivity extends DailyDoseService {
 				todaysDoseIcon.setVisibility(View.GONE);
 			} else {
 				layoutWithValue.setBackgroundColor(getResources().getColor(R.color.orange));
-				todaysDoseAmountTextView.setText(DoseType.getLabelForAmount(getTodaysDose().getDose()));
+				todaysDoseAmountTextView.setText(getTodaysDose().getDose().getLabel());
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_confirm));
 				todaysDoseIcon.setVisibility(View.VISIBLE);
 			}

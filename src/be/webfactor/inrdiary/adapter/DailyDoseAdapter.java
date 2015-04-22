@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.DailyDose;
-import be.webfactor.inrdiary.domain.DoseType;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -42,7 +41,7 @@ public class DailyDoseAdapter extends ArrayAdapter<DailyDose> {
 		monthTextView.setText(MONTH_FORMAT.format(date).toUpperCase().substring(0, 3));
 
 		TextView doseAmount = (TextView) rowView.findViewById(R.id.dose_amount);
-		doseAmount.setText(DoseType.getLabelForAmount(dailyDose.getDose()));
+		doseAmount.setText(dailyDose.getDose().getLabel());
 
 		return rowView;
 	}
