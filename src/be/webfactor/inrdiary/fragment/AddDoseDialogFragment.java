@@ -19,12 +19,14 @@ import java.util.Date;
 public class AddDoseDialogFragment extends DialogFragment {
 
 	private static final String DATE_KEY = "date";
+	private static final String DOSE_KEY = "dose";
 
-	public static AddDoseDialogFragment newInstance(Date initialDate) {
+	public static AddDoseDialogFragment newInstance(Date initialDate, DoseType initialDose) {
 		AddDoseDialogFragment fragment = new AddDoseDialogFragment();
 
 		Bundle args = new Bundle();
 		args.putSerializable(DATE_KEY, initialDate);
+		args.putSerializable(DOSE_KEY, initialDose);
 		fragment.setArguments(args);
 
 		return fragment;
@@ -46,7 +48,7 @@ public class AddDoseDialogFragment extends DialogFragment {
 		final NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.add_dose_numberpicker);
 
 		setupDatePicker(datePicker, (Date) getArguments().getSerializable(DATE_KEY));
-		setupNumberPicker(numberPicker);
+		setupNumberPicker(numberPicker, (DoseType) getArguments().getSerializable(DOSE_KEY));
 
 		builder.setTitle(R.string.add_dose)
 				.setView(view)
@@ -55,7 +57,7 @@ public class AddDoseDialogFragment extends DialogFragment {
 						DailyDose dailyDose = new DailyDose();
 
 						dailyDose.setDate(getDateString(datePicker));
-						dailyDose.setDose(DoseType.getDoseForIndex(numberPicker.getValue()));
+						dailyDose.setDose(DoseType.values()[numberPicker.getValue()]);
 
 						listener.onAddDose(dailyDose);
 					}
@@ -89,11 +91,11 @@ public class AddDoseDialogFragment extends DialogFragment {
 		return DailyDose.DB_FORMAT.format(date);
 	}
 
-	private void setupNumberPicker(NumberPicker numberPicker) {
+	private void setupNumberPicker(NumberPicker numberPicker, DoseType dose) {
 		numberPicker.setDisplayedValues(DoseType.DISPLAY_VALUES);
 		numberPicker.setMinValue(0);
 		numberPicker.setMaxValue(DoseType.DISPLAY_VALUES.length - 1);
-		numberPicker.setValue(DoseType.DEFAULT.ordinal());
+		numberPicker.setValue(dose.ordinal());
 		numberPicker.setWrapSelectorWheel(false);
 	}
 

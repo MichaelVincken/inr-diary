@@ -17,7 +17,7 @@ public class DailyDose {
 	private String date;
 
 	@DatabaseField(canBeNull = false)
-	private float dose;
+	private DoseType dose;
 
 	@DatabaseField
 	private boolean confirmed;
@@ -38,11 +38,11 @@ public class DailyDose {
 		this.date = date;
 	}
 
-	public float getDose() {
+	public DoseType getDose() {
 		return dose;
 	}
 
-	public void setDose(float dose) {
+	public void setDose(DoseType dose) {
 		this.dose = dose;
 	}
 

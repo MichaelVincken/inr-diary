@@ -56,7 +56,7 @@ public class ManageDosesActivity extends DailyDoseService implements AddDoseDial
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.add_dose:
-				DialogFragment fragment = AddDoseDialogFragment.newInstance(getNearestDateWithoutDose());
+				DialogFragment fragment = AddDoseDialogFragment.newInstance(getNearestDateWithoutDose(), getLastKnownDose());
 				fragment.show(getFragmentManager(), null);
 				return true;
 			default:
