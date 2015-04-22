@@ -18,10 +18,16 @@ import java.util.Date;
 
 public class AddDoseDialogFragment extends DialogFragment {
 
-	public interface AddDoseDialogListener {
+	private static final String DATE_KEY = "date";
 
-		void onAddDose(DailyDose dose);
+	public static AddDoseDialogFragment newInstance(Date initialDate) {
+		AddDoseDialogFragment fragment = new AddDoseDialogFragment();
 
+		Bundle args = new Bundle();
+		args.putSerializable(DATE_KEY, initialDate);
+		fragment.setArguments(args);
+
+		return fragment;
 	}
 
 	private AddDoseDialogListener listener;
@@ -38,6 +44,8 @@ public class AddDoseDialogFragment extends DialogFragment {
 
 		final DatePicker datePicker = (DatePicker) view.findViewById(R.id.add_dose_datepicker);
 		final NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.add_dose_numberpicker);
+
+		setupDatePicker(datePicker, (Date) getArguments().getSerializable(DATE_KEY));
 		setupNumberPicker(numberPicker);
 
 		builder.setTitle(R.string.add_dose)
@@ -61,6 +69,13 @@ public class AddDoseDialogFragment extends DialogFragment {
 		return builder.create();
 	}
 
+	private void setupDatePicker(DatePicker datePicker, Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+
+		datePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+	}
+
 	private String getDateString(DatePicker datePicker) {
 		int day = datePicker.getDayOfMonth();
 		int month = datePicker.getMonth();
@@ -80,6 +95,12 @@ public class AddDoseDialogFragment extends DialogFragment {
 		numberPicker.setMaxValue(DoseType.DISPLAY_VALUES.length - 1);
 		numberPicker.setValue(DoseType.DEFAULT.ordinal());
 		numberPicker.setWrapSelectorWheel(false);
+	}
+
+	public interface AddDoseDialogListener {
+
+		void onAddDose(DailyDose dose);
+
 	}
 
 }

@@ -6,6 +6,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -43,6 +44,22 @@ public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelpe
 		DailyDose dose = getTodaysDose();
 		dose.setConfirmed(!dose.isConfirmed());
 		dao().update(dose);
+	}
+
+	protected Date getNearestDateWithoutDose() {
+		Date date = new Date();
+		while (hasDose(date)) {
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(date);
+			calendar.add(Calendar.DATE, 1);
+			date = calendar.getTime();
+		}
+		return date;
+	}
+
+	private boolean hasDose(Date date) {
+		String dateString = DailyDose.DB_FORMAT.format(date);
+		return getDoseByDate(dateString) != null;
 	}
 
 	private DailyDose getDoseByDate(String date) {
