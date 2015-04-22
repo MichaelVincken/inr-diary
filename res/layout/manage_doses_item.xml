@@ -41,7 +41,7 @@
 		<LinearLayout
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				android:layout_weight="0.5"
+				android:layout_weight="0.45"
 				android:orientation="horizontal"
 				android:gravity="center">
 
@@ -53,6 +53,28 @@
 
 			<TextView
 					android:id="@+id/dose_amount"
+					android:layout_width="wrap_content"
+					android:layout_height="fill_parent"
+					android:width="30dp"
+					style="@style/list_item_dose"/>
+		</LinearLayout>
+
+		<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.55"
+				android:orientation="horizontal"
+				android:gravity="center">
+
+			<TextView
+					android:id="@+id/list_item_confirmation_label"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:text="@string/confirmed"
+					style="@style/list_item_dose_label"/>
+
+			<TextView
+					android:id="@+id/list_item_confirmation_date"
 					android:layout_width="wrap_content"
 					android:layout_height="fill_parent"
 					android:width="50dp"

@@ -63,4 +63,8 @@
 		<item name="android:textColor">@color/white</item>
 		<item name="android:gravity">center</item>
 	</style>
+
+	<style name="list_item_not_confirmed">
+		<item name="android:textColor">@color/red</item>
+	</style>
 </resources>

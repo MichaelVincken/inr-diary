@@ -43,6 +43,20 @@ public class DailyDoseAdapter extends ArrayAdapter<DailyDose> {
 		TextView doseAmount = (TextView) rowView.findViewById(R.id.dose_amount);
 		doseAmount.setText(dailyDose.getDose().getLabel());
 
+		TextView confirmationTime = (TextView) rowView.findViewById(R.id.list_item_confirmation_date);
+		confirmationTime.setText(dailyDose.getFormattedConfirmationTime());
+
+		if (!dailyDose.isConfirmed()) {
+			confirmationTime.setVisibility(View.GONE);
+			TextView confirmationLabel = (TextView) rowView.findViewById(R.id.list_item_confirmation_label);
+			if (dailyDose.getDateObj().before(new Date())) {
+				confirmationLabel.setText(parent.getResources().getString(R.string.not_confirmed));
+				confirmationLabel.setTextAppearance(getContext(), R.style.list_item_not_confirmed);
+			} else {
+				confirmationLabel.setVisibility(View.GONE);
+			}
+		}
+
 		return rowView;
 	}
 

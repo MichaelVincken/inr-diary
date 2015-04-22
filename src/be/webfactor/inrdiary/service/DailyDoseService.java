@@ -51,6 +51,7 @@ public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelpe
 
 	protected void toggleTodaysDoseConfirmation() {
 		DailyDose dose = getTodaysDose();
+		dose.setConfirmationDate(dose.isConfirmed() ? null : new Date());
 		dose.setConfirmed(!dose.isConfirmed());
 		dao().update(dose);
 	}

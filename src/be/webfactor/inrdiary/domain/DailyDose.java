@@ -9,6 +9,7 @@ import java.util.Date;
 public class DailyDose {
 
 	public static final SimpleDateFormat DB_FORMAT = new SimpleDateFormat("yyyyMMdd");
+	private static final SimpleDateFormat CONFIRM_TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
 	@DatabaseField(generatedId = true)
 	private int id;
@@ -22,12 +23,22 @@ public class DailyDose {
 	@DatabaseField
 	private boolean confirmed;
 
+	@DatabaseField
+	private Date confirmationDate;
+
 	public Date getDateObj() {
 		try {
 			return DB_FORMAT.parse(date);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public String getFormattedConfirmationTime() {
+		if (confirmationDate == null) {
+			return null;
+		}
+		return CONFIRM_TIME_FORMAT.format(confirmationDate);
 	}
 
 	public String getDate() {
@@ -52,6 +63,14 @@ public class DailyDose {
 
 	public void setConfirmed(boolean confirmed) {
 		this.confirmed = confirmed;
+	}
+
+	public Date getConfirmationDate() {
+		return confirmationDate;
+	}
+
+	public void setConfirmationDate(Date confirmationDate) {
+		this.confirmationDate = confirmationDate;
 	}
 
 }

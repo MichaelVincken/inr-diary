@@ -16,10 +16,10 @@
 			style="@style/top_left_view_with_value">
 
 		<TextView
+				android:id="@+id/todays_dose_title"
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:layout_weight="0.2"
-				android:text="@string/today"
 				style="@style/todays_dose_title"/>
 
 
@@ -35,7 +35,6 @@
 					android:id="@+id/todays_dose_amount_text_view"
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					android:text="@string/default_dose"
 					style="@style/todays_dose_value"/>
 
 			<ImageView
