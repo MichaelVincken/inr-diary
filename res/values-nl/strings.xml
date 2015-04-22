@@ -15,4 +15,6 @@
 	<string name="tap_to_undo">Tik om ongedaan te maken</string>
 	<string name="dose">Dosis</string>
 	<string name="confirmed_at_x">Bevestigd om %1$s</string>
+	<string name="confirmed">Bevestigd</string>
+	<string name="not_confirmed">Niet bevestigd</string>
 </resources>
