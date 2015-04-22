@@ -52,7 +52,7 @@ public class AddDoseDialogFragment extends DialogFragment {
 
 		builder.setTitle(R.string.add_dose)
 				.setView(view)
-				.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
+				.setPositiveButton(R.string.save_and_continue, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						DailyDose dailyDose = new DailyDose();
 
