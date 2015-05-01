@@ -1,5 +1,8 @@
 package be.webfactor.inrdiary.activity;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,6 +30,7 @@ public class MainActivity extends DailyDoseService {
 	private TextView todaysDoseAmountTextView;
 	private TextView todaysDoseContext;
 	private ImageView todaysDoseIcon;
+	private NotificationManager notificationManager;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,6 +55,14 @@ public class MainActivity extends DailyDoseService {
 				startActivity(i);
 			}
 		});
+
+		Notification doseReminder = new Notification.Builder(getApplicationContext())
+				.setContentTitle("Forgot to take your pill?")
+				.setContentText("Did you forget to take today's dose? Do it now!")
+				.setSmallIcon(R.drawable.ic_alert_pill)
+				.build();
+		notificationManager = ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
+		notificationManager.notify(0, doseReminder);
 	}
 
 	protected void onResume() {
