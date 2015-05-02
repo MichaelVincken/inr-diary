@@ -103,6 +103,9 @@ public class MainActivity extends Activity {
 			case R.id.action_manage_doses:
 				startActivity(new Intent(this, ManageDosesActivity.class));
 				return true;
+			case R.id.action_manage_inr:
+				startActivity(new Intent(this, ManageInrActivity.class));
+				return true;
 			default:
 				return super.onOptionsItemSelected(item);
 		}

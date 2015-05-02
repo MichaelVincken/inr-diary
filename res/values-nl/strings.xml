@@ -18,4 +18,5 @@
 	<string name="confirmed">Bevestigd</string>
 	<string name="not_confirmed">Niet bevestigd</string>
 	<string name="forgot_to_take_todays_dose">Je dosis voor vandaag vergeten in te nemen?</string>
+	<string name="manage_inr_measurements">INR-metingen beheren</string>
 </resources>

@@ -26,11 +26,14 @@
 				android:configChanges="orientation"
 				android:screenOrientation="portrait"
 				android:label="@string/manage_doses"
-				android:parentActivityName=".activity.MainActivity">
-			<meta-data
-					android:name="android.support.PARENT_ACTIVITY"
-					android:value=".MainActivity"/>
-		</activity>
+				android:parentActivityName=".activity.MainActivity"/>
+
+		<activity
+				android:name=".activity.ManageInrActivity"
+				android:configChanges="orientation"
+				android:screenOrientation="portrait"
+				android:label="@string/manage_inr_measurements"
+				android:parentActivityName=".activity.MainActivity"/>
 
 		<receiver android:name=".alarm.AlarmReceiver"/>
 

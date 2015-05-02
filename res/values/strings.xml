@@ -18,4 +18,5 @@
 	<string name="confirmed">Confirmed</string>
 	<string name="not_confirmed">Not confirmed</string>
 	<string name="forgot_to_take_todays_dose">Forgot to take today\'s dose?</string>
+	<string name="manage_inr_measurements">Manage INR Measurements</string>
 </resources>
