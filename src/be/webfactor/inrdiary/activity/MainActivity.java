@@ -1,5 +1,6 @@
 package be.webfactor.inrdiary.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,14 +11,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.webfactor.inrdiary.R;
+import be.webfactor.inrdiary.alarm.AlarmScheduler;
+import be.webfactor.inrdiary.database.DailyDoseRepository;
 import be.webfactor.inrdiary.domain.DailyDose;
-import be.webfactor.inrdiary.service.DailyDoseService;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MainActivity extends DailyDoseService {
+public class MainActivity extends Activity {
 
 	private static final DateFormat TODAY_DATE_FORMAT = new SimpleDateFormat("EEEE d MMMM");
 
@@ -27,11 +29,14 @@ public class MainActivity extends DailyDoseService {
 	private TextView todaysDoseAmountTextView;
 	private TextView todaysDoseContext;
 	private ImageView todaysDoseIcon;
+	private DailyDoseRepository dailyDoseRepository;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
+
+		dailyDoseRepository = DailyDoseRepository.getInstance(this);
 
 		todaysDoseTitle = (TextView) findViewById(R.id.todays_dose_title);
 		todaysDoseAmountTextView = (TextView) findViewById(R.id.todays_dose_amount_text_view);
@@ -40,7 +45,7 @@ public class MainActivity extends DailyDoseService {
 		layoutWithValue = (LinearLayout) findViewById(R.id.layout_with_value);
 		layoutWithValue.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				toggleTodaysDoseConfirmation();
+				dailyDoseRepository.toggleTodaysDoseConfirmation();
 				buildLayout();
 			}
 		});
@@ -51,6 +56,8 @@ public class MainActivity extends DailyDoseService {
 				startActivity(i);
 			}
 		});
+
+		AlarmScheduler.getInstance().scheduleAlarm(this);
 	}
 
 	protected void onResume() {
@@ -60,7 +67,7 @@ public class MainActivity extends DailyDoseService {
 	}
 
 	private void buildLayout() {
-		DailyDose todaysDose = getTodaysDose();
+		DailyDose todaysDose = dailyDoseRepository.getTodaysDose();
 		layoutWithoutValue.setVisibility(View.GONE);
 		layoutWithValue.setVisibility(View.GONE);
 		if (todaysDose != null) {
@@ -76,7 +83,7 @@ public class MainActivity extends DailyDoseService {
 				String todayString = TODAY_DATE_FORMAT.format(new Date());
 				todayString = Character.toUpperCase(todayString.charAt(0)) + todayString.substring(1);
 				todaysDoseTitle.setText(todayString);
-				todaysDoseAmountTextView.setText(getTodaysDose().getDose().getLabel());
+				todaysDoseAmountTextView.setText(todaysDose.getDose().getLabel());
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_confirm));
 				todaysDoseIcon.setVisibility(View.VISIBLE);
 			}
@@ -99,6 +106,11 @@ public class MainActivity extends DailyDoseService {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	protected void onDestroy() {
+		super.onDestroy();
+		dailyDoseRepository.release();
 	}
 
 }

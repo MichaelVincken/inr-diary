@@ -1,9 +1,9 @@
-package be.webfactor.inrdiary.service;
+package be.webfactor.inrdiary.database;
 
-import be.webfactor.inrdiary.database.DatabaseHelper;
+import android.content.Context;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.domain.DoseType;
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.sql.SQLException;
@@ -11,21 +11,43 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelper> {
+public class DailyDoseRepository {
+
+	private static DailyDoseRepository instance;
+	private DatabaseHelper databaseHelper;
+
+	public void release() {
+		if (databaseHelper != null) {
+			OpenHelperManager.releaseHelper();
+			instance = null;
+			databaseHelper = null;
+		}
+	}
+
+	public static DailyDoseRepository getInstance(Context context) {
+		if (instance == null) {
+			instance = new DailyDoseRepository(context);
+		}
+		return instance;
+	}
+
+	private DailyDoseRepository(Context context) {
+		databaseHelper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
+	}
 
 	private static final String DATE_FIELD = "date";
 
-	protected void saveDose(DailyDose dose) {
-			DailyDose existingDose = getDoseByDate(dose.getDate());
-			if (existingDose == null) {
-				dao().create(dose);
-			} else {
-				existingDose.setDose(dose.getDose());
-				dao().update(existingDose);
-			}
+	public void saveDose(DailyDose dose) {
+		DailyDose existingDose = getDoseByDate(dose.getDate());
+		if (existingDose == null) {
+			dao().create(dose);
+		} else {
+			existingDose.setDose(dose.getDose());
+			dao().update(existingDose);
+		}
 	}
 
-	protected List<DailyDose> getDoses() {
+	public List<DailyDose> getDoses() {
 		try {
 			return dao().queryBuilder().orderBy(DATE_FIELD, false).query();
 		} catch (SQLException e) {
@@ -33,7 +55,7 @@ public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelpe
 		}
 	}
 
-	protected DailyDose getMostRecentDose() {
+	public DailyDose getMostRecentDose() {
 		try {
 			return dao().queryBuilder().orderBy(DATE_FIELD, false).queryForFirst();
 		} catch (SQLException e) {
@@ -41,22 +63,22 @@ public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelpe
 		}
 	}
 
-	protected DailyDose getTodaysDose() {
+	public DailyDose getTodaysDose() {
 		return getDoseByDate(DailyDose.DB_FORMAT.format(new Date()));
 	}
 
-	protected void deleteDose(DailyDose dose) {
+	public void deleteDose(DailyDose dose) {
 		dao().delete(dose);
 	}
 
-	protected void toggleTodaysDoseConfirmation() {
+	public void toggleTodaysDoseConfirmation() {
 		DailyDose dose = getTodaysDose();
 		dose.setConfirmationDate(dose.isConfirmed() ? null : new Date());
 		dose.setConfirmed(!dose.isConfirmed());
 		dao().update(dose);
 	}
 
-	protected DoseType getLastKnownDose() {
+	public DoseType getLastKnownDose() {
 		DailyDose dose = getMostRecentDose();
 		if (dose == null) {
 			return DoseType.DEFAULT;
@@ -64,7 +86,7 @@ public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelpe
 		return dose.getDose();
 	}
 
-	protected Date getNearestDateWithoutDose() {
+	public Date getNearestDateWithoutDose() {
 		Date date = new Date();
 		while (hasDose(date)) {
 			Calendar calendar = Calendar.getInstance();
@@ -89,7 +111,7 @@ public abstract class DailyDoseService extends OrmLiteBaseActivity<DatabaseHelpe
 	}
 
 	private RuntimeExceptionDao<DailyDose, Integer> dao() {
-		return getHelper().getDao();
+		return databaseHelper.getDao();
 	}
 
 }
