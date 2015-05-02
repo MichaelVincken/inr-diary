@@ -1,4 +1,4 @@
-package be.webfactor.inrdiary.receiver;
+package be.webfactor.inrdiary.alarm;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -23,6 +23,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 					.setContentText(context.getResources().getString(R.string.tap_to_confirm))
 					.setSmallIcon(R.drawable.ic_alert_pill)
 					.setContentIntent(contentIntent)
+					.setAutoCancel(true)
 					.build();
 
 			((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(0, doseReminder);

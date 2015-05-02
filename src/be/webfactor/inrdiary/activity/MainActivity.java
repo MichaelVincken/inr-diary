@@ -1,9 +1,6 @@
 package be.webfactor.inrdiary.activity;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.webfactor.inrdiary.R;
+import be.webfactor.inrdiary.alarm.AlarmScheduler;
 import be.webfactor.inrdiary.database.DailyDoseRepository;
 import be.webfactor.inrdiary.domain.DailyDose;
-import be.webfactor.inrdiary.receiver.AlarmReceiver;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends Activity {
@@ -61,29 +57,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		scheduleAlarm();
-	}
-
-	private void scheduleAlarm() {
-		Calendar calendar = Calendar.getInstance();
-
-		long currentTime = calendar.getTimeInMillis();
-
-		calendar.set(Calendar.HOUR_OF_DAY, 20);
-		calendar.set(Calendar.MINUTE, 45);
-		calendar.set(Calendar.SECOND, 0);
-
-		long intendedTime = calendar.getTimeInMillis();
-
-		if (currentTime >= intendedTime) {
-			calendar.add(Calendar.DAY_OF_MONTH, 1);
-			intendedTime = calendar.getTimeInMillis();
-		}
-
-		Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
-		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, intendedTime, AlarmManager.INTERVAL_DAY, pendingIntent);
+		AlarmScheduler.getInstance().scheduleAlarm(this);
 	}
 
 	protected void onResume() {
