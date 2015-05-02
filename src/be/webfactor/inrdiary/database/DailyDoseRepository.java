@@ -13,6 +13,8 @@ import java.util.List;
 
 public class DailyDoseRepository {
 
+	private static final String DATE_FIELD = "date";
+
 	private static DailyDoseRepository instance;
 	private DatabaseHelper databaseHelper;
 
@@ -34,8 +36,6 @@ public class DailyDoseRepository {
 	private DailyDoseRepository(Context context) {
 		databaseHelper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
 	}
-
-	private static final String DATE_FIELD = "date";
 
 	public void saveDose(DailyDose dose) {
 		DailyDose existingDose = getDoseByDate(dose.getDate());
@@ -111,7 +111,7 @@ public class DailyDoseRepository {
 	}
 
 	private RuntimeExceptionDao<DailyDose, Integer> dao() {
-		return databaseHelper.getDao();
+		return databaseHelper.getDailyDoseDao();
 	}
 
 }

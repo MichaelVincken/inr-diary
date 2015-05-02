@@ -2,7 +2,13 @@ package be.webfactor.inrdiary.domain;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class InrMeasurement {
+
+	public static final SimpleDateFormat DB_FORMAT = new SimpleDateFormat("yyyyMMdd");
 
 	@DatabaseField(generatedId = true)
 	private int id;
@@ -12,6 +18,14 @@ public class InrMeasurement {
 
 	@DatabaseField(canBeNull = false)
 	private float inrValue;
+
+	public Date getDateObj() {
+		try {
+			return DB_FORMAT.parse(date);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public String getDate() {
 		return date;
