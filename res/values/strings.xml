@@ -17,4 +17,5 @@
 	<string name="confirmed_at_x">Confirmed at %1$s</string>
 	<string name="confirmed">Confirmed</string>
 	<string name="not_confirmed">Not confirmed</string>
+	<string name="forgot_to_take_todays_dose">Forgot to take today\'s dose?</string>
 </resources>

@@ -1,7 +1,8 @@
 package be.webfactor.inrdiary.activity;
 
-import android.app.Notification;
-import android.app.NotificationManager;
+import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,14 +14,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import be.webfactor.inrdiary.R;
+import be.webfactor.inrdiary.database.DailyDoseRepository;
 import be.webfactor.inrdiary.domain.DailyDose;
-import be.webfactor.inrdiary.service.DailyDoseService;
+import be.webfactor.inrdiary.receiver.AlarmReceiver;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class MainActivity extends DailyDoseService {
+public class MainActivity extends Activity {
 
 	private static final DateFormat TODAY_DATE_FORMAT = new SimpleDateFormat("EEEE d MMMM");
 
@@ -30,12 +33,14 @@ public class MainActivity extends DailyDoseService {
 	private TextView todaysDoseAmountTextView;
 	private TextView todaysDoseContext;
 	private ImageView todaysDoseIcon;
-	private NotificationManager notificationManager;
+	private DailyDoseRepository dailyDoseRepository;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
+
+		dailyDoseRepository = DailyDoseRepository.getInstance(this);
 
 		todaysDoseTitle = (TextView) findViewById(R.id.todays_dose_title);
 		todaysDoseAmountTextView = (TextView) findViewById(R.id.todays_dose_amount_text_view);
@@ -44,7 +49,7 @@ public class MainActivity extends DailyDoseService {
 		layoutWithValue = (LinearLayout) findViewById(R.id.layout_with_value);
 		layoutWithValue.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				toggleTodaysDoseConfirmation();
+				dailyDoseRepository.toggleTodaysDoseConfirmation();
 				buildLayout();
 			}
 		});
@@ -56,13 +61,29 @@ public class MainActivity extends DailyDoseService {
 			}
 		});
 
-		Notification doseReminder = new Notification.Builder(getApplicationContext())
-				.setContentTitle("Forgot to take your pill?")
-				.setContentText("Did you forget to take today's dose? Do it now!")
-				.setSmallIcon(R.drawable.ic_alert_pill)
-				.build();
-		notificationManager = ((NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE));
-		notificationManager.notify(0, doseReminder);
+		scheduleAlarm();
+	}
+
+	private void scheduleAlarm() {
+		Calendar calendar = Calendar.getInstance();
+
+		long currentTime = calendar.getTimeInMillis();
+
+		calendar.set(Calendar.HOUR_OF_DAY, 20);
+		calendar.set(Calendar.MINUTE, 45);
+		calendar.set(Calendar.SECOND, 0);
+
+		long intendedTime = calendar.getTimeInMillis();
+
+		if (currentTime >= intendedTime) {
+			calendar.add(Calendar.DAY_OF_MONTH, 1);
+			intendedTime = calendar.getTimeInMillis();
+		}
+
+		Intent alarmIntent = new Intent(MainActivity.this, AlarmReceiver.class);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, alarmIntent, 0);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, intendedTime, AlarmManager.INTERVAL_DAY, pendingIntent);
 	}
 
 	protected void onResume() {
@@ -72,7 +93,7 @@ public class MainActivity extends DailyDoseService {
 	}
 
 	private void buildLayout() {
-		DailyDose todaysDose = getTodaysDose();
+		DailyDose todaysDose = dailyDoseRepository.getTodaysDose();
 		layoutWithoutValue.setVisibility(View.GONE);
 		layoutWithValue.setVisibility(View.GONE);
 		if (todaysDose != null) {
@@ -88,7 +109,7 @@ public class MainActivity extends DailyDoseService {
 				String todayString = TODAY_DATE_FORMAT.format(new Date());
 				todayString = Character.toUpperCase(todayString.charAt(0)) + todayString.substring(1);
 				todaysDoseTitle.setText(todayString);
-				todaysDoseAmountTextView.setText(getTodaysDose().getDose().getLabel());
+				todaysDoseAmountTextView.setText(todaysDose.getDose().getLabel());
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_confirm));
 				todaysDoseIcon.setVisibility(View.VISIBLE);
 			}
@@ -111,6 +132,11 @@ public class MainActivity extends DailyDoseService {
 			default:
 				return super.onOptionsItemSelected(item);
 		}
+	}
+
+	protected void onDestroy() {
+		super.onDestroy();
+		dailyDoseRepository.release();
 	}
 
 }
