@@ -41,7 +41,7 @@ public class InrMeasurementAdapter extends ArrayAdapter<InrMeasurement> {
 		monthTextView.setText(MONTH_FORMAT.format(date).toUpperCase().substring(0, 3));
 
 		TextView inrValue = (TextView) rowView.findViewById(R.id.inr_item_value);
-		inrValue.setText(String.valueOf(inrMeasurement.getInrValue()));
+		inrValue.setText(InrMeasurement.INR_VALUE_NUMBER_FORMAT.format(inrMeasurement.getInrValue()));
 
 		return rowView;
 	}
