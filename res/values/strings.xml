@@ -20,4 +20,7 @@
 	<string name="forgot_to_take_todays_dose">Forgot to take today\'s dose?</string>
 	<string name="manage_inr_measurements">Manage INR Measurements</string>
 	<string name="inr_value">INR Value</string>
+	<string name="add_inr_value">Add INR Value</string>
+	<string name="save">Save</string>
+	<string name="inr_value_was_successfully_added">INR value was successfully added</string>
 </resources>

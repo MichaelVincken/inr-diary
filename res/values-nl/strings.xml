@@ -20,4 +20,7 @@
 	<string name="forgot_to_take_todays_dose">Je dosis voor vandaag vergeten in te nemen?</string>
 	<string name="manage_inr_measurements">INR-metingen beheren</string>
 	<string name="inr_value">INR-waarde</string>
+	<string name="add_inr_value">INR-waarde toevoegen</string>
+	<string name="save">Opslaan</string>
+	<string name="inr_value_was_successfully_added">INR-waarde succesvol opgeslagen</string>
 </resources>

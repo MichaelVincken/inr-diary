@@ -38,6 +38,24 @@ public class InrMeasurementRepository {
 		}
 	}
 
+	public void saveInrMeasurement(InrMeasurement inrMeasurement) {
+		InrMeasurement existing = getInrMeasurementByDate(inrMeasurement.getDate());
+		if (existing == null) {
+			dao().create(inrMeasurement);
+		} else {
+			existing.setInrValue(inrMeasurement.getInrValue());
+			dao().update(existing);
+		}
+	}
+
+	private InrMeasurement getInrMeasurementByDate(String date) {
+		try {
+			return dao().queryBuilder().where().eq(DATE_FIELD, date).queryForFirst();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private InrMeasurementRepository(Context context) {
 		databaseHelper = OpenHelperManager.getHelper(context, DatabaseHelper.class);
 	}
