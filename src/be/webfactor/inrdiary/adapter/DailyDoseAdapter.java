@@ -30,9 +30,9 @@ public class DailyDoseAdapter extends ArrayAdapter<DailyDose> {
 
 		DailyDose dailyDose = getItem(position);
 
-		TextView dayOfWeekTextView = (TextView) rowView.findViewById(R.id.item_date_day_of_week);
-		TextView dayTextView = (TextView) rowView.findViewById(R.id.item_date_day);
-		TextView monthTextView = (TextView) rowView.findViewById(R.id.item_date_month);
+		TextView dayOfWeekTextView = (TextView) rowView.findViewById(R.id.dose_item_date_day_of_week);
+		TextView dayTextView = (TextView) rowView.findViewById(R.id.dose_item_date_day);
+		TextView monthTextView = (TextView) rowView.findViewById(R.id.dose_item_date_month);
 
 		Date date = dailyDose.getDateObj();
 

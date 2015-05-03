@@ -4,6 +4,12 @@
 	<item
 			android:id="@+id/action_manage_doses"
 			android:title="@string/manage_doses"
-			android:showAsAction="ifRoom"
+			android:showAsAction="always"
 			android:icon="@drawable/ic_action_pill"/>
+
+	<item
+			android:id="@+id/action_manage_inr"
+			android:title="@string/manage_inr_measurements"
+			android:showAsAction="always"
+			android:icon="@drawable/ic_action_inr"/>
 </menu>
