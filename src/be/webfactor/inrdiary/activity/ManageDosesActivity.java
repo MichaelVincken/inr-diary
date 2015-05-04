@@ -78,9 +78,4 @@ public class ManageDosesActivity extends Activity implements AddDoseDialogFragme
 		fragment.show(getFragmentManager(), null);
 	}
 
-	protected void onDestroy() {
-		super.onDestroy();
-		dailyDoseRepository.release();
-	}
-
 }

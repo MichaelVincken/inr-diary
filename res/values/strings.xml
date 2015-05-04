@@ -23,4 +23,7 @@
 	<string name="add_inr_value">Add INR Value</string>
 	<string name="save">Save</string>
 	<string name="inr_value_was_successfully_added">INR value was successfully added</string>
+	<string name="most_recent_inr">Current INR</string>
+	<string name="not_available">N/A</string>
+	<string name="tap_to_configure_inrs">Tap to configure INRs</string>
 </resources>

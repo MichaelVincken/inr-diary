@@ -55,11 +55,6 @@ public class ManageInrActivity extends Activity implements AddInrDialogFragment.
 		fragment.show(getFragmentManager(), null);
 	}
 
-	protected void onDestroy() {
-		super.onDestroy();
-		inrMeasurementRepository.release();
-	}
-
 	public void onAddInr(InrMeasurement inrMeasurement) {
 		inrMeasurementRepository.saveInrMeasurement(inrMeasurement);
 		Toast.makeText(getApplicationContext(), getResources().getText(R.string.inr_value_was_successfully_added), Toast.LENGTH_SHORT).show();

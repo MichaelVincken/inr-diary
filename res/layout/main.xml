@@ -3,14 +3,82 @@
 			  android:orientation="vertical"
 			  android:layout_width="fill_parent"
 			  android:layout_height="fill_parent"
-			  android:weightSum="1.0">
+			  android:weightSum="1.0"
+			  android:background="@drawable/background_grey_gradient">
 
 	<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
-			android:layout_weight="0.5">
+			android:layout_weight="0.5"
+			android:layout_margin="8dp">
 
-		<include layout="@layout/dose"/>
+		<include layout="@layout/todays_dose"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="0.25"
+			android:weightSum="1.0"
+			android:orientation="horizontal"
+			android:layout_marginBottom="4dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp">
+
+		<LinearLayout
+				android:id="@+id/most_recent_inr_layout"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:background="@drawable/background_blue"
+				android:orientation="vertical"
+				android:gravity="center"
+				android:layout_marginRight="4dp">
+
+			<include layout="@layout/most_recent_inr"/>
+
+		</LinearLayout>
+
+		<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:background="@drawable/background_dark_grey"
+				android:layout_marginLeft="4dp">
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="0.25"
+			android:weightSum="1.0"
+			android:orientation="horizontal"
+			android:layout_marginTop="4dp"
+			android:layout_marginBottom="8dp"
+			android:layout_marginLeft="8dp"
+			android:layout_marginRight="8dp">
+
+		<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:background="@drawable/background_dark_grey"
+				android:layout_marginRight="4dp">
+
+		</LinearLayout>
+
+		<LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="0.5"
+				android:background="@drawable/background_dark_grey"
+				android:layout_marginLeft="4dp">
+
+		</LinearLayout>
 
 	</LinearLayout>
 

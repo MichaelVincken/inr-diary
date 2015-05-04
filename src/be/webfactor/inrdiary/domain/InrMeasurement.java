@@ -30,6 +30,10 @@ public class InrMeasurement {
 		}
 	}
 
+	public String getFormattedInrValue() {
+		return INR_VALUE_NUMBER_FORMAT.format(inrValue);
+	}
+
 	public String getDate() {
 		return date;
 	}

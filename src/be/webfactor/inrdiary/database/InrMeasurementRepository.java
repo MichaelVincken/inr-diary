@@ -48,6 +48,14 @@ public class InrMeasurementRepository {
 		}
 	}
 
+	public InrMeasurement getMostRecentMeasurement() {
+		try {
+			return dao().queryBuilder().orderBy(DATE_FIELD, false).queryForFirst();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 	private InrMeasurement getInrMeasurementByDate(String date) {
 		try {
 			return dao().queryBuilder().where().eq(DATE_FIELD, date).queryForFirst();

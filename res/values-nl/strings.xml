@@ -23,4 +23,7 @@
 	<string name="add_inr_value">INR-waarde toevoegen</string>
 	<string name="save">Opslaan</string>
 	<string name="inr_value_was_successfully_added">INR-waarde succesvol opgeslagen</string>
+	<string name="most_recent_inr">Huidige INR</string>
+	<string name="not_available">NVT</string>
+	<string name="tap_to_configure_inrs">Tik om INR-waardes in te voeren</string>
 </resources>
