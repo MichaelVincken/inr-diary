@@ -26,10 +26,10 @@
 				android:layout_height="wrap_content"
 				android:textColor="@color/white"
 				android:textSize="35dp"
-				android:gravity="center"
-				android:text="2"/>
+				android:gravity="center"/>
 
 		<ImageView
+				android:id="@+id/tomorrows_dose_imageview"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/ic_pill_white_small"
