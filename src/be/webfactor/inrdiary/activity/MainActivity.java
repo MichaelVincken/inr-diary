@@ -96,17 +96,18 @@ public class MainActivity extends Activity {
 			if (todaysDose.isConfirmed()) {
 				layoutWithValue.setBackground(getResources().getDrawable(R.drawable.background_green));
 				todaysDoseTitle.setText(getResources().getString(R.string.confirmed_at_x, todaysDose.getFormattedConfirmationTime()));
-				todaysDoseAmountTextView.setText(getResources().getString(R.string.ok));
+				todaysDoseAmountTextView.setVisibility(View.GONE);
+				todaysDoseIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_check));
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_undo));
-				todaysDoseIcon.setVisibility(View.GONE);
 			} else {
 				layoutWithValue.setBackground(getResources().getDrawable(R.drawable.background_orange));
 				String todayString = TODAY_DATE_FORMAT.format(new Date());
 				todayString = Character.toUpperCase(todayString.charAt(0)) + todayString.substring(1);
 				todaysDoseTitle.setText(todayString);
+				todaysDoseAmountTextView.setVisibility(View.VISIBLE);
 				todaysDoseAmountTextView.setText(todaysDose.getDose().getLabel());
+				todaysDoseIcon.setImageDrawable(getResources().getDrawable(R.drawable.ic_pill_white));
 				todaysDoseContext.setText(getResources().getString(R.string.tap_to_confirm));
-				todaysDoseIcon.setVisibility(View.VISIBLE);
 			}
 		} else {
 			layoutWithoutValue.setVisibility(View.VISIBLE);
