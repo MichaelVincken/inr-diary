@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:orientation="vertical"
+			  android:gravity="center">
+
+	<TextView
+			android:text="@string/tomorrows_dose"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@color/white"
+			android:textSize="12dp"
+			android:gravity="center"/>
+
+	<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center">
+
+		<TextView
+				android:id="@+id/tomorrows_dose_textview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:textSize="35dp"
+				android:gravity="center"/>
+
+		<ImageView
+				android:id="@+id/tomorrows_dose_imageview"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_pill_white_small"
+				android:paddingLeft="10dp"
+				android:paddingRight="0dp"/>
+
+	</LinearLayout>
+
+</LinearLayout>

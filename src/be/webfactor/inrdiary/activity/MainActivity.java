@@ -32,6 +32,9 @@ public class MainActivity extends Activity {
 	private TextView todaysDoseContext;
 	private ImageView todaysDoseIcon;
 
+	private TextView tomorrowsDoseTextView;
+	private ImageView tomorrowsDoseImageView;
+
 	private DailyDoseRepository dailyDoseRepository;
 	private InrMeasurementRepository inrMeasurementRepository;
 
@@ -63,6 +66,9 @@ public class MainActivity extends Activity {
 				startActivity(new Intent(getApplicationContext(), ManageDosesActivity.class));
 			}
 		});
+
+		tomorrowsDoseTextView = (TextView) findViewById(R.id.tomorrows_dose_textview);
+		tomorrowsDoseImageView = (ImageView) findViewById(R.id.tomorrows_dose_imageview);
 
 		mostRecentInrValueTextView = (TextView) findViewById(R.id.most_recent_inr_value_textview);
 		mostRecentInrDateTextView = (TextView) findViewById(R.id.most_recent_inr_date_textview);
@@ -104,6 +110,15 @@ public class MainActivity extends Activity {
 			}
 		} else {
 			layoutWithoutValue.setVisibility(View.VISIBLE);
+		}
+
+		DailyDose tomorrowsDose = dailyDoseRepository.getTomorrowsDose();
+		if (tomorrowsDose != null) {
+			tomorrowsDoseImageView.setVisibility(View.VISIBLE);
+			tomorrowsDoseTextView.setText(tomorrowsDose.getDose().getLabel());
+		} else {
+			tomorrowsDoseImageView.setVisibility(View.GONE);
+			tomorrowsDoseTextView.setText("?");
 		}
 
 		InrMeasurement inrMeasurement = inrMeasurementRepository.getMostRecentMeasurement();

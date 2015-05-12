@@ -67,6 +67,13 @@ public class DailyDoseRepository {
 		return getDoseByDate(DailyDose.DB_FORMAT.format(new Date()));
 	}
 
+	public DailyDose getTomorrowsDose() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, 1);
+		Date tomorrow = calendar.getTime();
+		return getDoseByDate(DailyDose.DB_FORMAT.format(tomorrow));
+	}
+
 	public void deleteDose(DailyDose dose) {
 		dao().delete(dose);
 	}
