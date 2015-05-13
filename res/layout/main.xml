@@ -71,8 +71,9 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				android:layout_weight="0.5"
-				android:background="@drawable/background_dark_grey"
 				android:layout_marginRight="4dp">
+
+			<include layout="@layout/days_until_no_dose"/>
 
 		</LinearLayout>
 

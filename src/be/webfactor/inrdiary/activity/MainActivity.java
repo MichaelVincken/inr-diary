@@ -38,6 +38,8 @@ public class MainActivity extends Activity {
 	private DailyDoseRepository dailyDoseRepository;
 	private InrMeasurementRepository inrMeasurementRepository;
 
+	private TextView daysUntilNoDoseTextView;
+
 	private TextView mostRecentInrValueTextView;
 	private TextView mostRecentInrDateTextView;
 
@@ -77,6 +79,8 @@ public class MainActivity extends Activity {
 				startActivity(new Intent(getApplicationContext(), ManageInrActivity.class));
 			}
 		});
+
+		daysUntilNoDoseTextView = (TextView) findViewById(R.id.days_until_no_dose_textview);
 
 		AlarmScheduler.getInstance().scheduleAlarm(this);
 	}
@@ -121,6 +125,8 @@ public class MainActivity extends Activity {
 			tomorrowsDoseImageView.setVisibility(View.GONE);
 			tomorrowsDoseTextView.setText("?");
 		}
+
+		daysUntilNoDoseTextView.setText(String.valueOf(dailyDoseRepository.getDaysUntilNoDose()));
 
 		InrMeasurement inrMeasurement = inrMeasurementRepository.getMostRecentMeasurement();
 		if (inrMeasurement != null) {
