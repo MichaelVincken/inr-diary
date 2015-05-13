@@ -2,6 +2,7 @@ package be.webfactor.inrdiary.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,12 +33,14 @@ public class MainActivity extends Activity {
 	private TextView todaysDoseContext;
 	private ImageView todaysDoseIcon;
 
+	private LinearLayout tomorrowsDoseLayout;
 	private TextView tomorrowsDoseTextView;
 	private ImageView tomorrowsDoseImageView;
 
 	private DailyDoseRepository dailyDoseRepository;
 	private InrMeasurementRepository inrMeasurementRepository;
 
+	private LinearLayout daysUntilNoDoseLayout;
 	private TextView daysUntilNoDoseTextView;
 
 	private TextView mostRecentInrValueTextView;
@@ -69,6 +72,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
+		tomorrowsDoseLayout = (LinearLayout) findViewById(R.id.tomorrows_dose_layout);
 		tomorrowsDoseTextView = (TextView) findViewById(R.id.tomorrows_dose_textview);
 		tomorrowsDoseImageView = (ImageView) findViewById(R.id.tomorrows_dose_imageview);
 
@@ -81,6 +85,7 @@ public class MainActivity extends Activity {
 		});
 
 		daysUntilNoDoseTextView = (TextView) findViewById(R.id.days_until_no_dose_textview);
+		daysUntilNoDoseLayout = (LinearLayout) findViewById(R.id.days_until_no_dose_layout);
 
 		AlarmScheduler.getInstance().scheduleAlarm(this);
 	}
@@ -126,7 +131,10 @@ public class MainActivity extends Activity {
 			tomorrowsDoseTextView.setText("?");
 		}
 
-		daysUntilNoDoseTextView.setText(String.valueOf(dailyDoseRepository.getDaysUntilNoDose()));
+		int daysUntilNoDose = dailyDoseRepository.getDaysUntilNoDose();
+		tomorrowsDoseLayout.setBackground(getBackgroundForDaysUntilNoDose(daysUntilNoDose));
+		daysUntilNoDoseLayout.setBackground(getBackgroundForDaysUntilNoDose(daysUntilNoDose));
+		daysUntilNoDoseTextView.setText(String.valueOf(daysUntilNoDose));
 
 		InrMeasurement inrMeasurement = inrMeasurementRepository.getMostRecentMeasurement();
 		if (inrMeasurement != null) {
@@ -138,6 +146,15 @@ public class MainActivity extends Activity {
 			mostRecentInrValueTextView.setText(getResources().getString(R.string.not_available));
 			mostRecentInrDateTextView.setText(getResources().getString(R.string.tap_to_configure_inrs));
 		}
+	}
+
+	private Drawable getBackgroundForDaysUntilNoDose(int days) {
+		if (days <= 1) {
+			return getResources().getDrawable(R.drawable.background_red);
+		} else if (days <= 2) {
+			return getResources().getDrawable(R.drawable.background_orange);
+		}
+		return getResources().getDrawable(R.drawable.background_turquoise);
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
