@@ -27,4 +27,5 @@
 	<string name="not_available">NVT</string>
 	<string name="tap_to_configure_inrs">Tik om INR-waardes in te voeren</string>
 	<string name="tomorrows_dose">Volgende dosis</string>
+	<string name="days_until_no_dose">dag(en) tot volgende INR-meting</string>
 </resources>

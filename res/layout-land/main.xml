@@ -35,14 +35,12 @@
 				android:layout_marginBottom="4dp">
 
 			<LinearLayout
-					android:id="@+id/most_recent_inr_layout"
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="0.5"
-					android:background="@drawable/background_blue"
 					android:layout_marginRight="4dp">
 
-				<include layout="@layout/most_recent_inr"/>
+				<include layout="@layout/tomorrows_dose"/>
 
 			</LinearLayout>
 
@@ -50,10 +48,9 @@
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="0.5"
-					android:background="@drawable/background_purple"
 					android:layout_marginLeft="4dp">
 
-				<include layout="@layout/tomorrows_dose"/>
+				<include layout="@layout/days_until_no_dose"/>
 
 			</LinearLayout>
 
@@ -71,8 +68,11 @@
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="0.5"
-					android:background="@drawable/background_dark_grey"
-					android:layout_marginRight="4dp"/>
+					android:layout_marginRight="4dp">
+
+				<include layout="@layout/most_recent_inr"/>
+
+			</LinearLayout>
 
 			<LinearLayout
 					android:layout_width="0dp"

@@ -93,15 +93,29 @@ public class DailyDoseRepository {
 		return dose.getDose();
 	}
 
+	public int getDaysUntilNoDose() {
+		int result = 0;
+		Date date = new Date();
+		while (hasDose(date)) {
+			date = addOneDay(date);
+			result ++;
+		}
+		return result;
+	}
+
 	public Date getNearestDateWithoutDose() {
 		Date date = new Date();
 		while (hasDose(date)) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(date);
-			calendar.add(Calendar.DATE, 1);
-			date = calendar.getTime();
+			date = addOneDay(date);
 		}
 		return date;
+	}
+
+	private Date addOneDay(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, 1);
+		return calendar.getTime();
 	}
 
 	private boolean hasDose(Date date) {
