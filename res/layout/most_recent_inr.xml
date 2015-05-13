@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:id="@+id/most_recent_inr_layout"
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
 			  android:orientation="vertical"
-			  android:gravity="center">
+			  android:gravity="center"
+			  android:background="@drawable/background_blue">
 
 	<TextView
 			android:text="@string/most_recent_inr"
