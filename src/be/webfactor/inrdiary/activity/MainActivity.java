@@ -153,7 +153,7 @@ public class MainActivity extends Activity {
 			mostRecentInrDateTextView.setText(getResources().getString(R.string.tap_to_configure_inrs));
 		}
 
-		inrGraph.setValues(new float[] {2.0f, 2.5f, 3.1f, 2, 1.6f, 1.8f, 1.9f, 2.2f, 1.5f, 1.1f, 3.6f});
+		inrGraph.setValues(inrMeasurementRepository.getMostRecentInrValues(10));
 	}
 
 	private Drawable getBackgroundForDaysUntilNoDose(int days) {

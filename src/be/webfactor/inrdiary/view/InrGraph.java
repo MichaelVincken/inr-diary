@@ -17,7 +17,7 @@ public class InrGraph extends View {
 	private static final int LABEL_COUNT = 5;
 
 	private Paint paint = new Paint();
-	private float[] values = new float[0];
+	private List<Float> values = new ArrayList<>();
 	private String[] verlabels = new String[0];
 
 	public InrGraph(Context context) {
@@ -52,10 +52,10 @@ public class InrGraph extends View {
 
 		if (max != min) {
 			paint.setColor(Color.WHITE);
-			float datalength = values.length;
+			float datalength = values.size();
 			float colwidth = (width - (2 * border)) / datalength;
-			for (int i = 0; i < values.length; i++) {
-				float val = values[i] - min;
+			for (int i = 0; i < values.size(); i++) {
+				float val = values.get(i) - min;
 				float rat = val / diff;
 				float h = height * rat;
 				canvas.drawRect((i * colwidth) + horstart, (2 * border) - h + graphheight, ((i * colwidth) + horstart) + (colwidth - 1), height + 1, paint);
@@ -71,8 +71,9 @@ public class InrGraph extends View {
 		return largest;
 	}
 
-	public void setValues(float[] values) {
+	public void setValues(List<Float> values) {
 		this.values = values;
+
 		List<String> labels = new ArrayList<>();
 		float value = getMax();
 		for (int i = 0; i < LABEL_COUNT; i++) {
