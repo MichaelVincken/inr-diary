@@ -48,6 +48,14 @@ public class InrMeasurementRepository {
 		}
 	}
 
+	public float getMostRecentInrValue() {
+		InrMeasurement measurement = getMostRecentMeasurement();
+		if (measurement == null) {
+			return InrMeasurement.DEFAULT_VALUE;
+		}
+		return measurement.getInrValue();
+	}
+
 	public InrMeasurement getMostRecentMeasurement() {
 		try {
 			return dao().queryBuilder().orderBy(DATE_FIELD, false).queryForFirst();

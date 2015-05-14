@@ -12,6 +12,7 @@ public class InrMeasurement {
 
 	public static final NumberFormat INR_VALUE_NUMBER_FORMAT = new DecimalFormat("#.0");
 	public static final SimpleDateFormat DB_FORMAT = new SimpleDateFormat("yyyyMMdd");
+	public static final float DEFAULT_VALUE = 2.0f;
 
 	@DatabaseField(generatedId = true)
 	private int id;

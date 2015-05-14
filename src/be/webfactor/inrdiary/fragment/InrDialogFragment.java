@@ -26,7 +26,6 @@ public class InrDialogFragment extends DialogFragment {
 	private static final float INR_VALUE_FROM = 1.0f;
 	private static final float INR_VALUE_TO = 5.0f;
 	private static final float INR_VALUE_INCREMENT = 0.1f;
-	private static final float DEFAULT_INR = 2.0f;
 
 	private static final String DATE_KEY = "date";
 	private static final String INR_KEY = "inr";

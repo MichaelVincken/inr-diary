@@ -67,7 +67,7 @@ public class ManageInrActivity extends Activity implements InrDialogFragment.Add
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.add_inr:
-				openInrDialog(new Date(), 2.0f, false);
+				openInrDialog(new Date(), inrMeasurementRepository.getMostRecentInrValue(), false);
 				return true;
 			default:
 				return super.onOptionsItemSelected(item);
