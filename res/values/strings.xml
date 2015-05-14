@@ -28,4 +28,7 @@
 	<string name="tap_to_configure_inrs">Tap to configure INRs</string>
 	<string name="tomorrows_dose">Tomorrow\'s dose</string>
 	<string name="days_until_no_dose">day(s) until next INR measurement</string>
+	<string name="dose_was_successfully_updated">Dose was successfully updated</string>
+	<string name="edit">Edit</string>
+	<string name="delete">Delete</string>
 </resources>

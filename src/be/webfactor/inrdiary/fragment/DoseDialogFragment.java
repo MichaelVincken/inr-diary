@@ -16,27 +16,29 @@ import be.webfactor.inrdiary.domain.DoseType;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddDoseDialogFragment extends DialogFragment {
+public class DoseDialogFragment extends DialogFragment {
 
 	private static final String DATE_KEY = "date";
 	private static final String DOSE_KEY = "dose";
+	private static final String UPDATE_KEY = "update";
 
-	public static AddDoseDialogFragment newInstance(Date initialDate, DoseType initialDose) {
-		AddDoseDialogFragment fragment = new AddDoseDialogFragment();
+	public static DoseDialogFragment newInstance(Date initialDate, DoseType initialDose, boolean update) {
+		DoseDialogFragment fragment = new DoseDialogFragment();
 
 		Bundle args = new Bundle();
 		args.putSerializable(DATE_KEY, initialDate);
 		args.putSerializable(DOSE_KEY, initialDose);
+		args.putBoolean(UPDATE_KEY, update);
 		fragment.setArguments(args);
 
 		return fragment;
 	}
 
-	private AddDoseDialogListener listener;
+	private DoseDialogListener listener;
 
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		listener = (AddDoseDialogListener) activity;
+		listener = (DoseDialogListener) activity;
 	}
 
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -49,26 +51,35 @@ public class AddDoseDialogFragment extends DialogFragment {
 
 		setupDatePicker(datePicker, (Date) getArguments().getSerializable(DATE_KEY));
 		setupNumberPicker(numberPicker, (DoseType) getArguments().getSerializable(DOSE_KEY));
+		final boolean update = getArguments().getBoolean(UPDATE_KEY);
 
 		builder.setTitle(R.string.add_dose)
 				.setView(view)
-				.setPositiveButton(R.string.save_and_continue, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						DailyDose dailyDose = new DailyDose();
-
-						dailyDose.setDate(getDateString(datePicker));
-						dailyDose.setDose(DoseType.values()[numberPicker.getValue()]);
-
-						listener.onAddDose(dailyDose);
-					}
-				})
-				.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+				.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
 					}
-				});
+				})
+				.setPositiveButton(update ? R.string.save : R.string.save_and_continue, createSaveListener(datePicker, numberPicker, update));
 
 		return builder.create();
+	}
+
+	private DialogInterface.OnClickListener createSaveListener(final DatePicker datePicker, final NumberPicker numberPicker, final boolean update) {
+		return new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				DailyDose dailyDose = new DailyDose();
+
+				dailyDose.setDate(getDateString(datePicker));
+				dailyDose.setDose(DoseType.values()[numberPicker.getValue()]);
+
+				if (update) {
+					listener.onUpdateDose(dailyDose);
+				} else {
+					listener.onCreateDose(dailyDose);
+				}
+			}
+		};
 	}
 
 	private void setupDatePicker(DatePicker datePicker, Date date) {
@@ -81,7 +92,7 @@ public class AddDoseDialogFragment extends DialogFragment {
 	private String getDateString(DatePicker datePicker) {
 		int day = datePicker.getDayOfMonth();
 		int month = datePicker.getMonth();
-		int year =  datePicker.getYear();
+		int year = datePicker.getYear();
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month, day);
@@ -99,9 +110,11 @@ public class AddDoseDialogFragment extends DialogFragment {
 		numberPicker.setWrapSelectorWheel(false);
 	}
 
-	public interface AddDoseDialogListener {
+	public interface DoseDialogListener {
 
-		void onAddDose(DailyDose dose);
+		void onCreateDose(DailyDose dose);
+
+		void onUpdateDose(DailyDose dose);
 
 	}
 
