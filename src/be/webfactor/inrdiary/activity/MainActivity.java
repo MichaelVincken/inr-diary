@@ -17,6 +17,7 @@ import be.webfactor.inrdiary.database.DailyDoseRepository;
 import be.webfactor.inrdiary.database.InrMeasurementRepository;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.domain.InrMeasurement;
+import be.webfactor.inrdiary.view.InrGraph;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -46,6 +47,8 @@ public class MainActivity extends Activity {
 
 	private TextView mostRecentInrValueTextView;
 	private TextView mostRecentInrDateTextView;
+
+	private InrGraph inrGraph;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,6 +90,8 @@ public class MainActivity extends Activity {
 
 		daysUntilNoDoseTextView = (TextView) findViewById(R.id.days_until_no_dose_textview);
 		daysUntilNoDoseLayout = (LinearLayout) findViewById(R.id.days_until_no_dose_layout);
+
+		inrGraph = (InrGraph) findViewById(R.id.inr_graph);
 
 		AlarmScheduler.getInstance().scheduleAlarm(this);
 	}
@@ -147,6 +152,8 @@ public class MainActivity extends Activity {
 			mostRecentInrValueTextView.setText(UNKNOWN);
 			mostRecentInrDateTextView.setText(getResources().getString(R.string.tap_to_configure_inrs));
 		}
+
+		inrGraph.setValues(new float[] {2.0f, 2.5f, 3.1f, 2, 1.6f, 1.8f, 1.9f, 2.2f, 1.5f, 1.1f, 3.6f});
 	}
 
 	private Drawable getBackgroundForDaysUntilNoDose(int days) {

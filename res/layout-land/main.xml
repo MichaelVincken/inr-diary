@@ -78,8 +78,11 @@
 					android:layout_width="0dp"
 					android:layout_height="match_parent"
 					android:layout_weight="0.5"
-					android:background="@drawable/background_dark_grey"
-					android:layout_marginLeft="4dp"/>
+					android:layout_marginLeft="4dp">
+
+				<include layout="@layout/inr_graph"/>
+
+			</LinearLayout>
 
 		</LinearLayout>
 
