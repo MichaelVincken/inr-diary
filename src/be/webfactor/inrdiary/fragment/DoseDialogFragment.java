@@ -53,7 +53,7 @@ public class DoseDialogFragment extends DialogFragment {
 		setupNumberPicker(numberPicker, (DoseType) getArguments().getSerializable(DOSE_KEY));
 		final boolean update = getArguments().getBoolean(UPDATE_KEY);
 
-		builder.setTitle(R.string.add_dose)
+		builder.setTitle(update ? R.string.update_dose : R.string.add_dose)
 				.setView(view)
 				.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
