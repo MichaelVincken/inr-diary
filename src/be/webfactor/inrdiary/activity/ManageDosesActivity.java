@@ -1,7 +1,6 @@
 package be.webfactor.inrdiary.activity;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.AdapterView;
@@ -34,16 +33,13 @@ public class ManageDosesActivity extends Activity implements DoseDialogFragment.
 	}
 
 	public void onCreateDose(DailyDose dose) {
-		dailyDoseRepository.saveDose(dose);
-		Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_added), Toast.LENGTH_SHORT).show();
-		populateDoseOverview();
-
+		onUpdateDose(dose);
 		openCreateDoseDialog();
 	}
 
 	public void onUpdateDose(DailyDose dose) {
 		dailyDoseRepository.saveDose(dose);
-		Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_updated), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_saved), Toast.LENGTH_SHORT).show();
 		populateDoseOverview();
 	}
 
@@ -69,7 +65,7 @@ public class ManageDosesActivity extends Activity implements DoseDialogFragment.
 
 		switch (item.getItemId()) {
 			case MENU_ITEM_EDIT:
-				openDoseDialog(dose.getDateObj(), dose.getDose());
+				openDoseDialog(dose.getDateObj(), dose.getDose(), true);
 				return true;
 			case MENU_ITEM_DELETE:
 				deleteDose(dose);
@@ -102,12 +98,13 @@ public class ManageDosesActivity extends Activity implements DoseDialogFragment.
 	}
 
 	private void openCreateDoseDialog() {
-		openDoseDialog(dailyDoseRepository.getNearestDateWithoutDose(), dailyDoseRepository.getLastKnownDose());
+		Date initialDate = dailyDoseRepository.getNearestDateWithoutDose();
+		DoseType dose = dailyDoseRepository.getLastKnownDose();
+		openDoseDialog(initialDate, dose, false);
 	}
 
-	private void openDoseDialog(Date initialDate, DoseType initialDose) {
-		DialogFragment fragment = DoseDialogFragment.newInstance(initialDate, initialDose, false);
-		fragment.show(getFragmentManager(), null);
+	private void openDoseDialog(Date initialDate, DoseType initialDose, boolean update) {
+		DoseDialogFragment.newInstance(initialDate, initialDose, update).show(getFragmentManager(), null);
 	}
 
 }

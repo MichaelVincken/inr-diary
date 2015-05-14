@@ -10,7 +10,7 @@
 	<string name="no_dose_set_for_today">No dose set for today!</string>
 	<string name="tap_to_configure_doses">Tap to configure doses</string>
 	<string name="dose_was_successfully_deleted">Dose was successfully deleted</string>
-	<string name="dose_was_successfully_added">Dose was successfully added</string>
+	<string name="dose_was_successfully_saved">Dose was successfully saved</string>
 	<string name="ok">OK</string>
 	<string name="tap_to_undo">Tap to undo</string>
 	<string name="dose">Dose</string>
@@ -22,13 +22,14 @@
 	<string name="inr_value">INR Value</string>
 	<string name="add_inr_value">Add INR Value</string>
 	<string name="save">Save</string>
-	<string name="inr_value_was_successfully_added">INR value was successfully added</string>
+	<string name="inr_value_was_successfully_saved">INR value was successfully saved</string>
 	<string name="most_recent_inr">Current INR</string>
 	<string name="not_available">N/A</string>
 	<string name="tap_to_configure_inrs">Tap to configure INRs</string>
 	<string name="tomorrows_dose">Tomorrow\'s dose</string>
 	<string name="days_until_no_dose">day(s) until next INR measurement</string>
-	<string name="dose_was_successfully_updated">Dose was successfully updated</string>
 	<string name="edit">Edit</string>
 	<string name="delete">Delete</string>
+	<string name="update_inr_value">Update INR Value</string>
+	<string name="update_dose">Update dose</string>
 </resources>

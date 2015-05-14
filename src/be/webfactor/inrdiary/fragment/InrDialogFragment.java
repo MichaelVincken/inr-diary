@@ -17,7 +17,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class AddInrDialogFragment extends DialogFragment {
+public class InrDialogFragment extends DialogFragment {
 
 	private static final List<Float> INR_VALUES;
 	private static final List<String> INR_DISPLAY_VALUES_LIST;
@@ -28,6 +28,10 @@ public class AddInrDialogFragment extends DialogFragment {
 	private static final float INR_VALUE_INCREMENT = 0.1f;
 	private static final float DEFAULT_INR = 2.0f;
 
+	private static final String DATE_KEY = "date";
+	private static final String INR_KEY = "inr";
+	private static final String UPDATE_KEY = "update";
+
 	static {
 		INR_DISPLAY_VALUES_LIST = new ArrayList<>();
 		INR_VALUES = new ArrayList<>();
@@ -36,6 +40,18 @@ public class AddInrDialogFragment extends DialogFragment {
 			INR_DISPLAY_VALUES_LIST.add(InrMeasurement.INR_VALUE_NUMBER_FORMAT.format(i));
 		}
 		INR_DISPLAY_VALUES = INR_DISPLAY_VALUES_LIST.toArray(new String[INR_DISPLAY_VALUES_LIST.size()]);
+	}
+
+	public static InrDialogFragment newInstance(Date initialDate, float initialInr, boolean update) {
+		InrDialogFragment fragment = new InrDialogFragment();
+
+		Bundle args = new Bundle();
+		args.putSerializable(DATE_KEY, initialDate);
+		args.putFloat(INR_KEY, initialInr);
+		args.putBoolean(UPDATE_KEY, update);
+		fragment.setArguments(args);
+
+		return fragment;
 	}
 
 	private AddInrDialogListener listener;
@@ -53,9 +69,11 @@ public class AddInrDialogFragment extends DialogFragment {
 		final DatePicker datePicker = (DatePicker) view.findViewById(R.id.add_inr_datepicker);
 		final NumberPicker inrValueNumberPicker = (NumberPicker) view.findViewById(R.id.add_inr_numberpicker);
 
-		setupNumberPicker(inrValueNumberPicker);
+		setupDatePicker(datePicker, (Date) getArguments().getSerializable(DATE_KEY));
+		setupNumberPicker(inrValueNumberPicker, getArguments().getFloat(INR_KEY));
+		final boolean update = getArguments().getBoolean(UPDATE_KEY);
 
-		builder.setTitle(R.string.add_inr_value)
+		builder.setTitle(update ? R.string.update_inr_value : R.string.add_inr_value)
 				.setView(view)
 				.setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -64,7 +82,7 @@ public class AddInrDialogFragment extends DialogFragment {
 						inrMeasurement.setDate(getDateString(datePicker));
 						inrMeasurement.setInrValue(INR_VALUES.get(inrValueNumberPicker.getValue()));
 
-						listener.onAddInr(inrMeasurement);
+						listener.onSaveInr(inrMeasurement);
 					}
 				})
 				.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -76,12 +94,19 @@ public class AddInrDialogFragment extends DialogFragment {
 		return builder.create();
 	}
 
-	private void setupNumberPicker(NumberPicker numberPicker) {
+	private void setupDatePicker(DatePicker datePicker, Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+
+		datePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+	}
+
+	private void setupNumberPicker(NumberPicker numberPicker, float inrValue) {
 		numberPicker.setDisplayedValues(INR_DISPLAY_VALUES);
 		numberPicker.setMinValue(0);
 		numberPicker.setMaxValue(INR_VALUES.size() - 1);
 		numberPicker.setWrapSelectorWheel(false);
-		numberPicker.setValue(INR_DISPLAY_VALUES_LIST.indexOf(InrMeasurement.INR_VALUE_NUMBER_FORMAT.format(DEFAULT_INR)));
+		numberPicker.setValue(INR_DISPLAY_VALUES_LIST.indexOf(InrMeasurement.INR_VALUE_NUMBER_FORMAT.format(inrValue)));
 	}
 
 	private String getDateString(DatePicker datePicker) {
@@ -99,7 +124,7 @@ public class AddInrDialogFragment extends DialogFragment {
 
 	public interface AddInrDialogListener {
 
-		void onAddInr(InrMeasurement inrMeasurement);
+		void onSaveInr(InrMeasurement inrMeasurement);
 
 	}
 
