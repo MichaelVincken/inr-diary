@@ -3,10 +3,7 @@ package be.webfactor.inrdiary.activity;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -22,7 +19,11 @@ import java.util.List;
 
 public class ManageDosesActivity extends Activity implements DoseDialogFragment.DoseDialogListener {
 
+	private static final int MENU_ITEM_EDIT = 1;
+	private static final int MENU_ITEM_DELETE = 2;
+
 	private DailyDoseRepository dailyDoseRepository;
+	private DailyDoseAdapter dailyDoseAdapter;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -32,7 +33,7 @@ public class ManageDosesActivity extends Activity implements DoseDialogFragment.
 		populateDoseOverview();
 	}
 
-	public void onCreate(DailyDose dose) {
+	public void onCreateDose(DailyDose dose) {
 		dailyDoseRepository.saveDose(dose);
 		Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_added), Toast.LENGTH_SHORT).show();
 		populateDoseOverview();
@@ -40,7 +41,7 @@ public class ManageDosesActivity extends Activity implements DoseDialogFragment.
 		openCreateDoseDialog();
 	}
 
-	public void onUpdate(DailyDose dose) {
+	public void onUpdateDose(DailyDose dose) {
 		dailyDoseRepository.saveDose(dose);
 		Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_updated), Toast.LENGTH_SHORT).show();
 		populateDoseOverview();
@@ -49,23 +50,39 @@ public class ManageDosesActivity extends Activity implements DoseDialogFragment.
 	private void populateDoseOverview() {
 		ListView resultList = (ListView) findViewById(R.id.doses_listview);
 		final List<DailyDose> doses = dailyDoseRepository.getDoses();
-		final DailyDoseAdapter dailyDoseAdapter = new DailyDoseAdapter(getApplicationContext(), doses);
+		dailyDoseAdapter = new DailyDoseAdapter(getApplicationContext(), doses);
 		resultList.setAdapter(dailyDoseAdapter);
-		resultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				DailyDose dose = doses.get(position);
-				DialogFragment fragment = DoseDialogFragment.newInstance(dose.getDateObj(), dose.getDose(), true);
-				fragment.show(getFragmentManager(), null);
-			}
-		});
-		resultList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-				dailyDoseRepository.deleteDose(doses.get(position));
-				Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_deleted), Toast.LENGTH_SHORT).show();
-				populateDoseOverview();
-				return false;
-			}
-		});
+		registerForContextMenu(resultList);
+	}
+
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+
+		menu.setHeaderTitle(getResources().getString(R.string.dose));
+		menu.add(Menu.NONE, MENU_ITEM_EDIT, Menu.NONE, getResources().getString(R.string.edit));
+		menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, getResources().getString(R.string.delete));
+	}
+
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+		DailyDose dose = dailyDoseAdapter.getItem(info.position);
+
+		switch (item.getItemId()) {
+			case MENU_ITEM_EDIT:
+				openDoseDialog(dose.getDateObj(), dose.getDose());
+				return true;
+			case MENU_ITEM_DELETE:
+				deleteDose(dose);
+				return true;
+			default:
+				return super.onContextItemSelected(item);
+		}
+	}
+
+	private void deleteDose(DailyDose selectedDose) {
+		dailyDoseRepository.deleteDose(selectedDose);
+		Toast.makeText(getApplicationContext(), getResources().getText(R.string.dose_was_successfully_deleted), Toast.LENGTH_SHORT).show();
+		populateDoseOverview();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,8 +102,10 @@ public class ManageDosesActivity extends Activity implements DoseDialogFragment.
 	}
 
 	private void openCreateDoseDialog() {
-		Date initialDate = dailyDoseRepository.getNearestDateWithoutDose();
-		DoseType initialDose = dailyDoseRepository.getLastKnownDose();
+		openDoseDialog(dailyDoseRepository.getNearestDateWithoutDose(), dailyDoseRepository.getLastKnownDose());
+	}
+
+	private void openDoseDialog(Date initialDate, DoseType initialDose) {
 		DialogFragment fragment = DoseDialogFragment.newInstance(initialDate, initialDose, false);
 		fragment.show(getFragmentManager(), null);
 	}

@@ -29,4 +29,6 @@
 	<string name="tomorrows_dose">Volgende dosis</string>
 	<string name="days_until_no_dose">dag(en) tot volgende INR-meting</string>
 	<string name="dose_was_successfully_updated">Dosis was succesvol aangepast</string>
+	<string name="edit">Aanpassen</string>
+	<string name="delete">Verwijderen</string>
 </resources>

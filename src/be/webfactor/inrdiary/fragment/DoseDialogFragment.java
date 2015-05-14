@@ -74,9 +74,9 @@ public class DoseDialogFragment extends DialogFragment {
 				dailyDose.setDose(DoseType.values()[numberPicker.getValue()]);
 
 				if (update) {
-					listener.onUpdate(dailyDose);
+					listener.onUpdateDose(dailyDose);
 				} else {
-					listener.onCreate(dailyDose);
+					listener.onCreateDose(dailyDose);
 				}
 			}
 		};
@@ -112,9 +112,9 @@ public class DoseDialogFragment extends DialogFragment {
 
 	public interface DoseDialogListener {
 
-		void onCreate(DailyDose dose);
+		void onCreateDose(DailyDose dose);
 
-		void onUpdate(DailyDose dose);
+		void onUpdateDose(DailyDose dose);
 
 	}
 
