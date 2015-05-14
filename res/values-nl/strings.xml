@@ -32,4 +32,5 @@
 	<string name="delete">Verwijderen</string>
 	<string name="update_inr_value">INR-waarde aanpassen</string>
 	<string name="update_dose">Dosis aanpassen</string>
+	<string name="inr_value_was_successfully_deleted">INR-waarde succesvol verwijderd</string>
 </resources>

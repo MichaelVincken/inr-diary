@@ -24,6 +24,7 @@ import java.util.Date;
 
 public class MainActivity extends Activity {
 
+	private static final String UNKNOWN = "?";
 	private static final DateFormat TODAY_DATE_FORMAT = new SimpleDateFormat("EEEE d MMMM");
 
 	private LinearLayout layoutWithValue;
@@ -128,7 +129,7 @@ public class MainActivity extends Activity {
 			tomorrowsDoseTextView.setText(tomorrowsDose.getDose().getLabel());
 		} else {
 			tomorrowsDoseImageView.setVisibility(View.GONE);
-			tomorrowsDoseTextView.setText("?");
+			tomorrowsDoseTextView.setText(UNKNOWN);
 		}
 
 		int daysUntilNoDose = dailyDoseRepository.getDaysUntilNoDose();
@@ -143,7 +144,7 @@ public class MainActivity extends Activity {
 			dateString = Character.toUpperCase(dateString.charAt(0)) + dateString.substring(1);
 			mostRecentInrDateTextView.setText(dateString);
 		} else {
-			mostRecentInrValueTextView.setText(getResources().getString(R.string.not_available));
+			mostRecentInrValueTextView.setText(UNKNOWN);
 			mostRecentInrDateTextView.setText(getResources().getString(R.string.tap_to_configure_inrs));
 		}
 	}

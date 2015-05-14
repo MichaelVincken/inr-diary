@@ -38,6 +38,10 @@ public class InrMeasurementRepository {
 		}
 	}
 
+	public void deleteInrMeasurement(InrMeasurement inrMeasurement) {
+		dao().delete(inrMeasurement);
+	}
+
 	public void saveInrMeasurement(InrMeasurement inrMeasurement) {
 		InrMeasurement existing = getInrMeasurementByDate(inrMeasurement.getDate());
 		if (existing == null) {

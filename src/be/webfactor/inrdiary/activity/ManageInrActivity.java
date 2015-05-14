@@ -18,6 +18,7 @@ import java.util.List;
 public class ManageInrActivity extends Activity implements InrDialogFragment.AddInrDialogListener {
 
 	private static final int MENU_ITEM_EDIT = 1;
+	private static final int MENU_ITEM_DELETE = 2;
 
 	private InrMeasurementRepository inrMeasurementRepository;
 	private InrMeasurementAdapter inrMeasurementAdapter;
@@ -43,6 +44,7 @@ public class ManageInrActivity extends Activity implements InrDialogFragment.Add
 
 		menu.setHeaderTitle(getResources().getString(R.string.inr_value));
 		menu.add(Menu.NONE, MENU_ITEM_EDIT, Menu.NONE, getResources().getString(R.string.edit));
+		menu.add(Menu.NONE, MENU_ITEM_DELETE, Menu.NONE, getResources().getString(R.string.delete));
 	}
 
 	public boolean onContextItemSelected(MenuItem item) {
@@ -53,9 +55,18 @@ public class ManageInrActivity extends Activity implements InrDialogFragment.Add
 			case MENU_ITEM_EDIT:
 				openInrDialog(inr.getDateObj(), inr.getInrValue(), true);
 				return true;
+			case MENU_ITEM_DELETE:
+				deleteInrMeasurement(inr);
+				return true;
 			default:
 				return super.onContextItemSelected(item);
 		}
+	}
+
+	private void deleteInrMeasurement(InrMeasurement inrMeasurement) {
+		inrMeasurementRepository.deleteInrMeasurement(inrMeasurement);
+		Toast.makeText(getApplicationContext(), getResources().getText(R.string.inr_value_was_successfully_deleted), Toast.LENGTH_SHORT).show();
+		populateInrOverview();
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
