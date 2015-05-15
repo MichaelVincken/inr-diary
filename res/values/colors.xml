@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white">#fff</color>
+    <color name="white">#d9ffffff</color>
     <color name="black">#000</color>
 	<color name="light_grey">#ddd</color>
 	<color name="grey">#aaa</color>
 	<color name="dark_grey">#666</color>
 	<color name="darker_grey">#333</color>
-	<color name="orange">#f39c12</color>
-	<color name="dark_orange">#e67e22</color>
-	<color name="red">#e74c3c</color>
-	<color name="dark_red">#c0392b</color>
-	<color name="green">#2ecc71</color>
-	<color name="dark_green">#27ae60</color>
-	<color name="blue">#3498db</color>
-	<color name="dark_blue">#2980b9</color>
-	<color name="turquoise">#1ABC9C</color>
-	<color name="dark_turquoise">#16A085</color>
+	<color name="orange">#F09609</color>
+	<color name="dark_orange">#ccF09609</color>
+	<color name="red">#E51400</color>
+	<color name="dark_red">#ccE51400</color>
+	<color name="green">#339933</color>
+	<color name="dark_green">#cc339933</color>
+	<color name="blue">#1BA1E2</color>
+	<color name="dark_blue">#cc1BA1E2</color>
+	<color name="teal">#00ABA9</color>
+	<color name="dark_teal">#cc00ABA9</color>
 	<color name="purple">#9b59b6</color>
 	<color name="dark_purple">#8e44ad</color>
-	<color name="silver">#bdc3c7</color>
+	<color name="blue_gray">#90A4AE</color>
+	<color name="dark_blue_gray">#37474F</color>
 </resources>

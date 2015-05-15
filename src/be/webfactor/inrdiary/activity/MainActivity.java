@@ -154,6 +154,7 @@ public class MainActivity extends Activity {
 		}
 
 		inrGraph.setValues(inrMeasurementRepository.getMostRecentInrValues(10));
+		inrGraph.invalidate();
 	}
 
 	private Drawable getBackgroundForDaysUntilNoDose(int days) {

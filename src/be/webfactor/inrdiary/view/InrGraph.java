@@ -2,10 +2,10 @@ package be.webfactor.inrdiary.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.InrMeasurement;
 
 import java.util.ArrayList;
@@ -34,6 +34,10 @@ public class InrGraph extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		if (values.isEmpty()) {
+			return;
+		}
+
 		float border = 20;
 		float horstart = border * 2;
 		float height = getHeight();
@@ -46,12 +50,12 @@ public class InrGraph extends View {
 		paint.setTextAlign(Paint.Align.LEFT);
 		for (int i = 0; i < verlabels.length; i++) {
 			float y = (((height + border) / verlabels.length) * i) + (border / 2);
-			paint.setColor(Color.WHITE);
+			paint.setColor(getResources().getColor(R.color.white));
 			canvas.drawText(verlabels[i], 0, y, paint);
 		}
 
 		if (max != min) {
-			paint.setColor(Color.WHITE);
+			paint.setColor(getResources().getColor(R.color.white));
 			float datalength = values.size();
 			float colwidth = (width - (2 * border)) / datalength;
 			for (int i = 0; i < values.size(); i++) {
