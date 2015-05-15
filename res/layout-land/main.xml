@@ -61,25 +61,9 @@
 				android:layout_height="0dp"
 				android:layout_weight="0.5"
 				android:orientation="horizontal"
-				android:weightSum="1.0"
 				android:layout_marginTop="4dp">
 
-			<LinearLayout
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="0.5"
-					android:layout_marginRight="4dp">
-
-				<include layout="@layout/most_recent_inr"/>
-
-			</LinearLayout>
-
-			<LinearLayout
-					android:layout_width="0dp"
-					android:layout_height="match_parent"
-					android:layout_weight="0.5"
-					android:background="@drawable/background_dark_grey"
-					android:layout_marginLeft="4dp"/>
+			<include layout="@layout/inr_info"/>
 
 		</LinearLayout>
 

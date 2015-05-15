@@ -6,6 +6,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class InrMeasurementRepository {
@@ -50,6 +52,20 @@ public class InrMeasurementRepository {
 			existing.setInrValue(inrMeasurement.getInrValue());
 			dao().update(existing);
 		}
+	}
+
+	public List<Float> getMostRecentInrValues(int max) {
+		List<Float> result = new ArrayList<>();
+		try {
+			List<InrMeasurement> measurements = dao().queryBuilder().orderBy(DATE_FIELD, false).limit(Long.valueOf(max)).query();
+			Collections.reverse(measurements);
+			for (InrMeasurement measurement : measurements) {
+				result.add(measurement.getInrValue());
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return result;
 	}
 
 	public float getMostRecentInrValue() {
