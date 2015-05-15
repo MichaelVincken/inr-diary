@@ -55,7 +55,7 @@ public class InrGraph extends View {
 		}
 
 		if (max != min) {
-			paint.setColor(getResources().getColor(R.color.white));
+			paint.setColor(getResources().getColor(R.color.white_transparent));
 			float datalength = values.size();
 			float colwidth = (width - (2 * border)) / datalength;
 			for (int i = 0; i < values.size(); i++) {

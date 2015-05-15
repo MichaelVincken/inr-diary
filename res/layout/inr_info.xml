@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			  android:id="@+id/most_recent_inr_layout"
+			  android:layout_width="match_parent"
+			  android:layout_height="match_parent"
+			  android:orientation="horizontal"
+			  android:background="@drawable/background_blue"
+			  android:weightSum="1.0">
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				  android:layout_width="0dp"
+				  android:layout_height="match_parent"
+				  android:layout_weight="0.5"
+				  android:orientation="vertical"
+				  android:gravity="center"
+				  android:background="@drawable/background_blue"
+				  android:padding="10dp">
+
+		<be.webfactor.inrdiary.view.InrGraph
+				android:id="@+id/inr_graph"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"/>
+
+	</LinearLayout>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				  android:layout_width="0dp"
+				  android:layout_height="match_parent"
+				  android:layout_weight="0.5"
+				  android:orientation="vertical"
+				  android:gravity="center"
+				  android:background="@drawable/background_blue">
+
+		<TextView
+				android:text="@string/most_recent_inr"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:textSize="12dp"
+				android:gravity="center"/>
+
+		<TextView
+				android:id="@+id/most_recent_inr_value_textview"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:textSize="35dp"
+				android:gravity="center"/>
+
+
+		<TextView
+				android:id="@+id/most_recent_inr_date_textview"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textColor="@color/white"
+				android:textSize="12dp"
+				android:gravity="center"/>
+
+	</LinearLayout>
+</LinearLayout>
