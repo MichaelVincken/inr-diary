@@ -33,4 +33,5 @@
 	<string name="update_inr_value">Update INR Value</string>
 	<string name="update_dose">Update dose</string>
 	<string name="inr_value_was_successfully_deleted">INR value was successfully deleted</string>
+	<string name="date">Date</string>
 </resources>

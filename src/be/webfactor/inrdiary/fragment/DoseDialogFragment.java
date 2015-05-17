@@ -7,13 +7,12 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.NumberPicker;
 import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.domain.DailyDose;
 import be.webfactor.inrdiary.domain.DoseType;
+import be.webfactor.inrdiary.view.CustomDatePicker;
 
-import java.util.Calendar;
 import java.util.Date;
 
 public class DoseDialogFragment extends DialogFragment {
@@ -46,10 +45,10 @@ public class DoseDialogFragment extends DialogFragment {
 
 		View view = getActivity().getLayoutInflater().inflate(R.layout.add_dose_dialog, null);
 
-		final DatePicker datePicker = (DatePicker) view.findViewById(R.id.add_dose_datepicker);
+		final CustomDatePicker datePicker = (CustomDatePicker) view.findViewById(R.id.add_dose_datepicker);
 		final NumberPicker numberPicker = (NumberPicker) view.findViewById(R.id.add_dose_numberpicker);
 
-		setupDatePicker(datePicker, (Date) getArguments().getSerializable(DATE_KEY));
+		datePicker.setDate((Date) getArguments().getSerializable(DATE_KEY));
 		setupNumberPicker(numberPicker, (DoseType) getArguments().getSerializable(DOSE_KEY));
 		final boolean update = getArguments().getBoolean(UPDATE_KEY);
 
@@ -65,12 +64,12 @@ public class DoseDialogFragment extends DialogFragment {
 		return builder.create();
 	}
 
-	private DialogInterface.OnClickListener createSaveListener(final DatePicker datePicker, final NumberPicker numberPicker, final boolean update) {
+	private DialogInterface.OnClickListener createSaveListener(final CustomDatePicker datePicker, final NumberPicker numberPicker, final boolean update) {
 		return new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				DailyDose dailyDose = new DailyDose();
 
-				dailyDose.setDate(getDateString(datePicker));
+				dailyDose.setDate(DailyDose.DB_FORMAT.format(datePicker.getDate()));
 				dailyDose.setDose(DoseType.values()[numberPicker.getValue()]);
 
 				if (update) {
@@ -80,26 +79,6 @@ public class DoseDialogFragment extends DialogFragment {
 				}
 			}
 		};
-	}
-
-	private void setupDatePicker(DatePicker datePicker, Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-
-		datePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-	}
-
-	private String getDateString(DatePicker datePicker) {
-		int day = datePicker.getDayOfMonth();
-		int month = datePicker.getMonth();
-		int year = datePicker.getYear();
-
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(year, month, day);
-
-		Date date = calendar.getTime();
-
-		return DailyDose.DB_FORMAT.format(date);
 	}
 
 	private void setupNumberPicker(NumberPicker numberPicker, DoseType dose) {
