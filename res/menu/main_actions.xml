@@ -12,4 +12,10 @@
 			android:title="@string/manage_inr_measurements"
 			android:showAsAction="always"
 			android:icon="@drawable/ic_action_inr"/>
+
+	<item
+			android:id="@+id/action_settings"
+			android:title="@string/action_settings"
+			android:showAsAction="always"
+			android:icon="@drawable/ic_action_settings"/>
 </menu>
