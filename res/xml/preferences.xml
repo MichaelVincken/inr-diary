@@ -4,7 +4,6 @@
 
 	<be.webfactor.inrdiary.preference.NotificationTimePreference
 			android:key="notification_time"
-			android:title="Notification time"
-			android:defaultValue="21:00"/>
+			android:title="Notification time"/>
 
 </PreferenceScreen>

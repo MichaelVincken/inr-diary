@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import be.webfactor.inrdiary.preference.PreferencesService;
 
 import java.util.Calendar;
 
@@ -19,12 +20,13 @@ public class AlarmScheduler {
 	}
 
 	public void scheduleAlarm(Context context) {
+		long currentTime = Calendar.getInstance().getTimeInMillis();
+
+		PreferencesService preferencesService = PreferencesService.getInstance(context);
+
 		Calendar calendar = Calendar.getInstance();
-
-		long currentTime = calendar.getTimeInMillis();
-
-		calendar.set(Calendar.HOUR_OF_DAY, 21);
-		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.HOUR_OF_DAY, preferencesService.getNotificationHour());
+		calendar.set(Calendar.MINUTE, preferencesService.getNotificationMinute());
 		calendar.set(Calendar.SECOND, 0);
 
 		long intendedTime = calendar.getTimeInMillis();

@@ -7,15 +7,11 @@ import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import be.webfactor.inrdiary.alarm.AlarmScheduler;
+import be.webfactor.inrdiary.util.TimeUtil;
 
 public class NotificationTimePreference extends DialogPreference {
 
-	private static final DateFormat TIME_FORMAT = new SimpleDateFormat("H:mm");
 	private static final int DEFAULT_HOUR = 21;
 	private static final int DEFAULT_MINUTE = 0;
 
@@ -23,7 +19,7 @@ public class NotificationTimePreference extends DialogPreference {
 	private int minute;
 	private TimePicker picker = null;
 
-	public NotificationTimePreference(Context context, AttributeSet attrs) {
+	public NotificationTimePreference(final Context context, AttributeSet attrs) {
 		super(context, attrs);
 
 		setPositiveButtonText("Set");
@@ -32,6 +28,7 @@ public class NotificationTimePreference extends DialogPreference {
 		setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
 				preference.setSummary(newValue.toString());
+				AlarmScheduler.getInstance().scheduleAlarm(context);
 				return true;
 			}
 		});
@@ -61,7 +58,7 @@ public class NotificationTimePreference extends DialogPreference {
 			hour = picker.getCurrentHour();
 			minute = picker.getCurrentMinute();
 
-			String time = getCurrentTimeString();
+			String time = TimeUtil.getTimeString(hour, minute);
 
 			if (callChangeListener(time)) {
 				persistString(time);
@@ -79,46 +76,14 @@ public class NotificationTimePreference extends DialogPreference {
 		String time;
 
 		if (restoreValue) {
-			time = getPersistedString(getDefaultTimeString());
+			time = getPersistedString(TimeUtil.getTimeString(DEFAULT_HOUR, DEFAULT_MINUTE));
 			setSummary(time);
 		} else {
 			time = defaultValue.toString();
 		}
 
-		hour = getHourFromString(time);
-		minute = getMinuteFromString(time);
-	}
-
-	private int getHourFromString(String time) {
-		return getCalendarFromString(time).get(Calendar.HOUR_OF_DAY);
-	}
-
-	private int getMinuteFromString(String time) {
-		return getCalendarFromString(time).get(Calendar.MINUTE);
-	}
-
-	private Calendar getCalendarFromString(String time) {
-		Calendar calendar = Calendar.getInstance();
-		try {
-			calendar.setTime(TIME_FORMAT.parse(time));
-		} catch (ParseException e) {
-		}
-		return calendar;
-	}
-
-	private String getCurrentTimeString() {
-		return getTimeString(hour, minute);
-	}
-
-	private String getDefaultTimeString() {
-		return getTimeString(DEFAULT_HOUR, DEFAULT_MINUTE);
-	}
-
-	private String getTimeString(int hour, int minute) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, hour);
-		calendar.set(Calendar.MINUTE, minute);
-		return TIME_FORMAT.format(calendar.getTime());
+		hour = TimeUtil.getHourFromString(time);
+		minute = TimeUtil.getMinuteFromString(time);
 	}
 
 }
