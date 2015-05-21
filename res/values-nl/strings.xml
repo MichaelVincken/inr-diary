@@ -34,4 +34,6 @@
 	<string name="update_dose">Dosis aanpassen</string>
 	<string name="inr_value_was_successfully_deleted">INR-waarde succesvol verwijderd</string>
 	<string name="date">Datum</string>
+	<string name="notification_enabled">Herinnering inschakelen</string>
+	<string name="notification_time">Tijdstip herinnering</string>
 </resources>

@@ -22,7 +22,7 @@ public class AlarmScheduler {
 	public void scheduleAlarm(Context context) {
 		PreferencesService preferencesService = PreferencesService.getInstance(context);
 
-		if (preferencesService.isNotificationTimeSet()) {
+		if (preferencesService.isNotificationEnabled()) {
 			int hour = preferencesService.getNotificationHour();
 			int minute = preferencesService.getNotificationMinute();
 
@@ -46,10 +46,20 @@ public class AlarmScheduler {
 			intendedTime = calendar.getTimeInMillis();
 		}
 
+		getAlarmManager(context).setRepeating(AlarmManager.RTC_WAKEUP, intendedTime, AlarmManager.INTERVAL_DAY, getPendingIntent(context));
+	}
+
+	public void unscheduleAlarm(Context context) {
+		getAlarmManager(context).cancel(getPendingIntent(context));
+	}
+
+	private AlarmManager getAlarmManager(Context context) {
+		return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+	}
+
+	private PendingIntent getPendingIntent(Context context) {
 		Intent alarmIntent = new Intent(context, AlarmReceiver.class);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
-		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, intendedTime, AlarmManager.INTERVAL_DAY, pendingIntent);
+		return PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
 	}
 
 }

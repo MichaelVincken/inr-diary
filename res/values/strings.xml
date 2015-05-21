@@ -34,4 +34,6 @@
 	<string name="update_dose">Update dose</string>
 	<string name="inr_value_was_successfully_deleted">INR value was successfully deleted</string>
 	<string name="date">Date</string>
+	<string name="notification_enabled">Notification enabled</string>
+	<string name="notification_time">Notification time</string>
 </resources>
