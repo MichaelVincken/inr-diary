@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.activity.MainActivity;
 import be.webfactor.inrdiary.database.DailyDoseRepository;
@@ -24,6 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 					.setSmallIcon(R.drawable.ic_alert_pill)
 					.setContentIntent(contentIntent)
 					.setAutoCancel(true)
+					.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
 					.build();
 
 			((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(0, doseReminder);
