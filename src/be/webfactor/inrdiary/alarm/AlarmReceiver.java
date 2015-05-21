@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.provider.Settings;
 import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.activity.MainActivity;
@@ -26,6 +27,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 					.setContentIntent(contentIntent)
 					.setAutoCancel(true)
 					.setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+					.setLights(Color.GREEN, 500, 500)
 					.build();
 
 			((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(0, doseReminder);
