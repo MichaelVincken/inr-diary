@@ -6,7 +6,7 @@ import be.webfactor.inrdiary.util.TimeUtil;
 
 public class PreferencesService {
 
-	private static final String NOTIFICATION_TIME = "notification_time";
+	private static final String NOTIFICATION_TIME_PREF_KEY = "notification_time";
 	
 	private Context context;
 
@@ -18,6 +18,10 @@ public class PreferencesService {
 		this.context = context;
 	}
 
+	public boolean isNotificationTimeSet() {
+		return getNotificationTime() != null;
+	}
+
 	public int getNotificationHour() {
 		return TimeUtil.getHourFromString(getNotificationTime());
 	}
@@ -27,7 +31,7 @@ public class PreferencesService {
 	}
 
 	private String getNotificationTime() {
-		return PreferenceManager.getDefaultSharedPreferences(context).getString(NOTIFICATION_TIME, null);
+		return PreferenceManager.getDefaultSharedPreferences(context).getString(NOTIFICATION_TIME_PREF_KEY, null);
 	}
 
 }

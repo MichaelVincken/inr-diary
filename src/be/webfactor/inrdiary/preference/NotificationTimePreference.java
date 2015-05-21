@@ -7,13 +7,11 @@ import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
+import be.webfactor.inrdiary.R;
 import be.webfactor.inrdiary.alarm.AlarmScheduler;
 import be.webfactor.inrdiary.util.TimeUtil;
 
 public class NotificationTimePreference extends DialogPreference {
-
-	private static final int DEFAULT_HOUR = 21;
-	private static final int DEFAULT_MINUTE = 0;
 
 	private int hour;
 	private int minute;
@@ -22,19 +20,24 @@ public class NotificationTimePreference extends DialogPreference {
 	public NotificationTimePreference(final Context context, AttributeSet attrs) {
 		super(context, attrs);
 
-		setPositiveButtonText("Set");
-		setNegativeButtonText("Cancel");
+		setPositiveButtonText(context.getResources().getString(R.string.save));
+		setNegativeButtonText(context.getResources().getString(R.string.cancel));
 
 		setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				preference.setSummary(newValue.toString());
-				AlarmScheduler.getInstance().scheduleAlarm(context);
+				String time = newValue.toString();
+
+				preference.setSummary(time);
+
+				int hour = TimeUtil.getHourFromString(time);
+				int minute = TimeUtil.getMinuteFromString(time);
+				AlarmScheduler.getInstance().scheduleAlarm(context, hour, minute);
+
 				return true;
 			}
 		});
 	}
 
-	@Override
 	protected View onCreateDialogView() {
 		picker = new TimePicker(getContext());
 		picker.setIs24HourView(true);
@@ -42,15 +45,20 @@ public class NotificationTimePreference extends DialogPreference {
 		return picker;
 	}
 
-	@Override
 	protected void onBindDialogView(View v) {
 		super.onBindDialogView(v);
 
-		picker.setCurrentHour(hour);
-		picker.setCurrentMinute(minute);
+		String time = getPersistedString(null);
+
+		if (time == null) {
+			picker.setCurrentHour(21);
+			picker.setCurrentMinute(0);
+		} else {
+			picker.setCurrentHour(hour);
+			picker.setCurrentMinute(minute);
+		}
 	}
 
-	@Override
 	protected void onDialogClosed(boolean positiveResult) {
 		super.onDialogClosed(positiveResult);
 
@@ -66,24 +74,23 @@ public class NotificationTimePreference extends DialogPreference {
 		}
 	}
 
-	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
 		return (a.getString(index));
 	}
 
-	@Override
 	protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-		String time;
+		String time = null;
 
 		if (restoreValue) {
-			time = getPersistedString(TimeUtil.getTimeString(DEFAULT_HOUR, DEFAULT_MINUTE));
-			setSummary(time);
-		} else {
-			time = defaultValue.toString();
+			time = getPersistedString(null);
 		}
 
-		hour = TimeUtil.getHourFromString(time);
-		minute = TimeUtil.getMinuteFromString(time);
+		if (time != null) {
+			setSummary(time);
+			hour = TimeUtil.getHourFromString(time);
+			minute = TimeUtil.getMinuteFromString(time);
+		}
+
 	}
 
 }
