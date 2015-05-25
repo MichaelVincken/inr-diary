@@ -38,18 +38,24 @@
 			android:orientation="horizontal"
 			android:gravity="center">
 
-			<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="match_parent"
-					android:text="@string/inr_value"
-					style="@style/list_item_inr_label"/>
+		<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:text="@string/inr_value"
+				android:textSize="@dimen/m"
+				android:textColor="@color/grey"
+				android:paddingRight="5dp"
+				android:paddingLeft="5dp"
+				android:gravity="center_vertical"/>
 
-			<TextView
-					android:id="@+id/inr_item_value"
-					android:layout_width="wrap_content"
-					android:layout_height="fill_parent"
-					android:width="30dp"
-					style="@style/list_item_inr_value"/>
+		<TextView
+				android:id="@+id/inr_item_value"
+				android:layout_width="wrap_content"
+				android:layout_height="fill_parent"
+				android:width="30dp"
+				android:textSize="@dimen/m"
+				android:textColor="@color/dark_grey"
+				android:gravity="center_vertical"/>
 
 	</LinearLayout>
 </LinearLayout>

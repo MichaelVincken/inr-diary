@@ -64,7 +64,7 @@
 				android:layout_height="match_parent"
 				android:layout_weight="0.55"
 				android:orientation="horizontal"
-				android:gravity="center">
+				android:gravity="center_vertical">
 
 			<TextView
 					android:id="@+id/list_item_confirmation_label"

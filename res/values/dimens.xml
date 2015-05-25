@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="xs">9dp</dimen>
+	<dimen name="s">11dp</dimen>
+	<dimen name="m">14dp</dimen>
+	<dimen name="l">22dp</dimen>
+	<dimen name="xl">27dp</dimen>
+	<dimen name="xxl">37dp</dimen>
+	<dimen name="spacing">4dp</dimen>
+</resources>

@@ -51,7 +51,7 @@ public class DailyDoseAdapter extends ArrayAdapter<DailyDose> {
 			TextView confirmationLabel = (TextView) rowView.findViewById(R.id.list_item_confirmation_label);
 			if (dailyDose.getDateObj().before(new Date())) {
 				confirmationLabel.setText(parent.getResources().getString(R.string.not_confirmed));
-				confirmationLabel.setTextAppearance(getContext(), R.style.list_item_not_confirmed);
+				confirmationLabel.setTextColor(parent.getResources().getColor(R.color.red));
 			} else {
 				confirmationLabel.setVisibility(View.GONE);
 			}

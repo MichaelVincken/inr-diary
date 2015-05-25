@@ -38,31 +38,38 @@ public class InrGraph extends View {
 			return;
 		}
 
-		float border = 20;
-		float horstart = border * 2;
+		float border = getResources().getDimension(R.dimen.l);
+		float horstart = border * 1.5f;
 		float height = getHeight();
-		float width = getWidth() - 1;
+		float width = getWidth() - horstart - 1;
 		float max = getMax();
 		float min = MINIMUM;
 		float diff = max - min;
 		float graphheight = height - (2 * border);
+		float textSize = getResources().getDimension(R.dimen.xs);
 
 		paint.setTextAlign(Paint.Align.LEFT);
 		for (int i = 0; i < verlabels.length; i++) {
-			float y = (((height + border) / verlabels.length) * i) + (border / 2);
+			float y = textSize + ((height - 1.1f * textSize) / (verlabels.length - 1)) * i;
 			paint.setColor(getResources().getColor(R.color.white));
+			paint.setTextSize(textSize);
 			canvas.drawText(verlabels[i], 0, y, paint);
 		}
 
 		if (max != min) {
 			paint.setColor(getResources().getColor(R.color.white_transparent));
 			float datalength = values.size();
-			float colwidth = (width - (2 * border)) / datalength;
+			float colwidth = width / datalength;
 			for (int i = 0; i < values.size(); i++) {
 				float val = values.get(i) - min;
 				float rat = val / diff;
 				float h = height * rat;
-				canvas.drawRect((i * colwidth) + horstart, (2 * border) - h + graphheight, ((i * colwidth) + horstart) + (colwidth - 1), height + 1, paint);
+
+				float left = (i * colwidth) + horstart;
+				float top = (2 * border) - h + graphheight;
+				float right = left + (colwidth - 1);
+				float bottom = height + 1;
+				canvas.drawRect(left, top, right, bottom, paint);
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-			  xmlns:tools="http://schemas.android.com/tools"
 			  android:orientation="horizontal"
 			  android:layout_width="fill_parent"
 			  android:layout_height="fill_parent">
@@ -13,14 +12,16 @@
 			android:layout_weight="0.5"
 			android:orientation="vertical"
 			android:weightSum="1.0"
-			style="@style/top_left_view_with_value">
+			android:padding="20dp">
 
 		<TextView
 				android:id="@+id/todays_dose_title"
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:layout_weight="0.2"
-				style="@style/todays_dose_title"/>
+				android:textSize="@dimen/l"
+				android:textColor="@color/white_transparent"
+				android:gravity="center"/>
 
 
 		<LinearLayout
@@ -35,7 +36,9 @@
 					android:id="@+id/todays_dose_amount_text_view"
 					android:layout_width="wrap_content"
 					android:layout_height="match_parent"
-					style="@style/todays_dose_value"/>
+					android:textSize="70dp"
+					android:textColor="@color/white"
+					android:gravity="center"/>
 
 			<ImageView
 					android:id="@+id/todays_dose_pill_icon"
@@ -65,14 +68,17 @@
 			android:visibility="gone"
 			android:orientation="vertical"
 			android:weightSum="1.0"
-			style="@style/top_left_view_without_value">
+			android:padding="20dp"
+			android:background="@drawable/background_red">
 
 		<TextView
 				android:layout_width="match_parent"
 				android:layout_height="0dp"
 				android:layout_weight="0.6"
 				android:text="@string/no_dose_set_for_today"
-				style="@style/todays_dose_no_value"/>
+				android:textSize="@dimen/xl"
+				android:textColor="@color/white_transparent"
+				android:gravity="center"/>
 
 		<TextView
 				android:layout_width="match_parent"
